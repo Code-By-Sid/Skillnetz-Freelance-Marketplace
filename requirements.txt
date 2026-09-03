@@ -2,7 +2,7 @@
 Django==5.0.2
 
 # Image handling — required by ImageField (CustomUser.dp_img, Job.job_image, ActiveJob.job_image)
-Pillow==10.2.0
+Pillow==10.4.0
 
 # Payments — used directly in skillnetz/views.py (order creation, payouts)
 razorpay==1.4.1
