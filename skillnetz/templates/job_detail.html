@@ -1,0 +1,78 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ job.job_title }} — SkillNetz{% endblock %}
+
+{% block content %}
+
+<header class="page-hero" style="padding-bottom:2.6rem;">
+  <div class="container">
+    <a href="{% url 'findwork' %}" class="chip reveal" style="margin-bottom:1.2rem;"><i class='bx bx-left-arrow-alt'></i> Back to jobs</a>
+    <span class="eyebrow reveal"><i class='bx bx-briefcase-alt-2'></i> Job Details</span>
+    <h1 class="reveal" style="--reveal-delay:.06s;max-width:44rem;">{{ job.job_title }}</h1>
+    <div class="job-meta reveal" style="--reveal-delay:.12s;margin-top:0.8rem;">
+      {% for s in job.skill.all %}<span class="meta-pill skill"><i class='bx bxs-purchase-tag-alt'></i> {{ s.name }}</span>{% endfor %}
+      <span class="meta-pill date"><i class='bx bx-calendar'></i> Posted {{ job.post_date|default_if_none:"recently" }}</span>
+    </div>
+  </div>
+</header>
+
+<section class="section" style="padding-top:3rem;">
+  <div class="container detail-layout">
+
+    <div class="detail-main reveal-left reveal">
+      <div class="form-card">
+        {% if job.job_image %}
+        <div class="detail-img"><img src="{{ job.job_image.url }}" alt="{{ job.job_title }}"></div>
+        {% endif %}
+        <div class="detail-body">
+          <h2>About this job</h2>
+          <p class="detail-desc">{{ job.description|linebreaksbr }}</p>
+
+          <div class="job-meta">
+            <span class="meta-pill price"><i class='bx bx-rupee'></i> Budget: {{ job.price }}</span>
+            <span class="meta-pill skill"><i class='bx bxs-group'></i> {{ applicant_count }} applicant{{ applicant_count|pluralize }}</span>
+            <span class="meta-pill date"><i class='bx bxs-user'></i> by {{ job.post_by.first_name|default:job.post_by.username }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <aside class="detail-side reveal-right reveal">
+      <div class="form-card">
+        <h3 style="font-size:1.15rem;margin-bottom:1rem;">Ready to take it on?</h3>
+
+        {% if has_applied %}
+          <div style="background:var(--teal-soft);color:var(--teal);padding:0.9rem 1.1rem;border-radius:14px;font-weight:600;font-size:0.92rem;display:flex;align-items:center;gap:0.6rem;">
+            <i class='bx bxs-check-circle' style="font-size:1.3rem;"></i> Application sent
+          </div>
+          <p style="font-size:0.85rem;color:var(--muted);margin-top:0.7rem;">The client will notify you when they review applications.</p>
+        {% else %}
+          <form method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary btn-block" style="padding:0.95rem;">Apply Now <i class='bx bx-right-arrow-alt'></i></button>
+          </form>
+        {% endif %}
+
+        {% if user.is_authenticated %}
+        <a href="{% url 'save_job' job.id %}" class="save-btn {% if is_saved %}saved{% endif %}" style="margin-top:0.8rem;width:100%;justify-content:center;">
+          <i class='bx {% if is_saved %}bxs-bookmark{% else %}bx-bookmark{% endif %}'></i>
+          {% if is_saved %}Saved — click to remove{% else %}Save this job{% endif %}
+        </a>
+        {% endif %}
+
+        <div class="ds-row"><span>Budget</span><strong>₹{{ job.price }}</strong></div>
+        <div class="ds-row"><span>Applicants</span><strong>{{ applicant_count }}</strong></div>
+        <div class="ds-row"><span>Status</span><strong style="color:var(--teal);">Open</strong></div>
+
+        <p style="font-size:0.82rem;color:var(--muted);margin-top:1.2rem;line-height:1.5;">
+          <i class='bx bx-shield-quarter' style="color:var(--primary);"></i>
+          Payments on SkillNetz are secure. Never share bank details over chat.
+        </p>
+      </div>
+    </aside>
+
+  </div>
+</section>
+
+{% endblock %}

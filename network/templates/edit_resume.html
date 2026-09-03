@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Edit Resume — SkillNetz{% endblock %}
+
+{% block content %}
+
+<section class="section" style="padding-top:calc(var(--nav-h) + 3.5rem);">
+  <div class="container" style="max-width:760px;">
+    <div class="form-card reveal">
+      <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.6rem;">
+        <span style="display:inline-grid;place-items:center;width:64px;height:64px;border-radius:20px;background:linear-gradient(135deg,#ff8a3c,var(--accent));color:#3d2800;font-size:1.8rem;box-shadow:0 12px 26px rgba(255,150,40,.35);"><i class='bx bxs-file'></i></span>
+        <div>
+          <h1 style="font-size:1.45rem;">{{ resume|yesno:"Update|Create" }} your resume</h1>
+          <p style="color:var(--muted);font-size:0.92rem;">A great resume helps clients trust you before they even message you.</p>
+        </div>
+      </div>
+
+      <form method="post">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="profile_details"><i class='bx bxs-user' style="color:var(--primary);"></i> Personal Info</label>
+          <textarea class="form-control" id="profile_details" name="profile_details" rows="5" required
+            placeholder="Introduce yourself — who you are, what you do, and what makes you unique...">{% if resume %}{{ resume.personal_info }}{% endif %}</textarea>
+        </div>
+        <div class="form-group">
+          <label for="work_experience"><i class='bx bxs-briefcase-alt-2' style="color:#e58e00;"></i> Work Experience</label>
+          <textarea class="form-control" id="work_experience" name="work_experience" rows="6" required
+            placeholder="Your roles, projects and freelance work so far...">{% if resume %}{{ resume.experience }}{% endif %}</textarea>
+        </div>
+        <div class="form-group">
+          <label for="achievements"><i class='bx bxs-trophy' style="color:var(--coral);"></i> Achievements</label>
+          <textarea class="form-control" id="achievements" name="achievements" rows="5" required
+            placeholder="Awards, certifications, milestones and proud moments...">{% if resume %}{{ resume.achievements }}{% endif %}</textarea>
+        </div>
+        <div style="display:flex;gap:0.8rem;flex-wrap:wrap;">
+          <button type="submit" class="btn btn-primary">Save Resume <i class='bx bxs-save'></i></button>
+          <a href="{% url 'display_resume' user_id=request.user.id %}" class="btn btn-ghost">Preview</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}My Work — SkillNetz{% endblock %}
+
+{% block content %}
+
+<header class="page-hero" style="padding-bottom:2.6rem;">
+  <div class="container">
+    <span class="eyebrow amber reveal"><i class='bx bx-briefcase-alt-2'></i> Freelancer Dashboard</span>
+    <h1 class="reveal" style="--reveal-delay:.06s">Jobs you applied to</h1>
+    <p class="reveal" style="--reveal-delay:.12s">Keep an eye on the applications you've sent and follow their progress.</p>
+    <div class="reveal" style="--reveal-delay:.18s;display:flex;gap:.6rem;margin-top:1.6rem;flex-wrap:wrap;">
+      <span class="chip" style="background:var(--primary);border-color:var(--primary);color:#fff;"><i class='bx bx-file'></i> Applications</span>
+      <a href="{% url 'workingjobs' %}" class="chip"><i class='bx bxs-briefcase-alt-2'></i> Working Jobs</a>
+      <a href="{% url 'saved_jobs' %}" class="chip"><i class='bx bxs-bookmark'></i> Saved Jobs</a>
+      <a href="{% url 'findwork' %}" class="chip"><i class='bx bx-search-alt-2'></i> Find More Work</a>
+    </div>
+  </div>
+</header>
+
+<section class="section" style="padding-top:3rem;">
+  <div class="container">
+    {% if applied_jobs %}
+    <div class="card-grid">
+      {% for application in applied_jobs %}
+      <article class="job-card reveal">
+        {% if application.job.job_image %}
+        <a href="{% url 'job_detail' job_id=application.job.id %}" class="jc-img">
+          <img src="{{ application.job.job_image.url }}" alt="{{ application.job.job_title }}" loading="lazy">
+          <span class="meta-pill skill" style="position:absolute;top:0.9rem;left:0.9rem;background:rgba(255,255,255,.92);">
+            <i class='bx bx-time-five' style="color:#e58e00;"></i>
+            {% if application.is_accepted %}Accepted{% else %}Pending{% endif %}
+          </span>
+        </a>
+        {% endif %}
+        <div class="jc-body">
+          <h3><a href="{% url 'job_detail' job_id=application.job.id %}">{{ application.job.job_title }}</a></h3>
+          <p class="jc-desc">{{ application.job.description|truncatechars:120 }}</p>
+          <div class="job-meta">
+            <span class="meta-pill price"><i class='bx bx-rupee'></i> {{ application.job.price }}</span>
+            {% for s in application.job.skill.all %}<span class="meta-pill skill">{{ s.name }}</span>{% endfor %}
+            <span class="meta-pill date"><i class='bx bx-calendar'></i> {{ application.job.post_date|default_if_none:"New" }}</span>
+          </div>
+          <div class="jc-actions">
+            <a href="{% url 'job_detail' job_id=application.job.id %}" class="btn btn-ghost btn-sm">View Job <i class='bx bx-right-arrow-alt'></i></a>
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state reveal">
+      <div class="es-icon"><i class='bx bx-send'></i></div>
+      <h3>No applications yet</h3>
+      <p>Browse open projects and send your first application — it only takes one click.</p>
+      <a href="{% url 'findwork' %}" class="btn btn-primary btn-sm">Find Work <i class='bx bx-right-arrow-alt'></i></a>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+{% endblock %}

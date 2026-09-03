@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Applications — {{ job.job_title }} — SkillNetz{% endblock %}
+
+{% block content %}
+
+<header class="page-hero" style="padding-bottom:2.6rem;">
+  <div class="container">
+    <a href="{% url 'myjobs' %}" class="chip reveal" style="margin-bottom:1.2rem;"><i class='bx bx-left-arrow-alt'></i> Back to my jobs</a>
+    <span class="eyebrow coral reveal"><i class='bx bxs-group'></i> Applications</span>
+    <h1 class="reveal" style="--reveal-delay:.06s;max-width:44rem;">{{ job.job_title }}</h1>
+    <div class="job-meta reveal" style="--reveal-delay:.12s;margin-top:0.8rem;">
+      <span class="meta-pill price"><i class='bx bx-rupee'></i> {{ job.price }}</span>
+      <span class="meta-pill skill"><i class='bx bxs-group'></i> {{ applications|length }} applicant{{ applications|length|pluralize }}</span>
+    </div>
+  </div>
+</header>
+
+<section class="section" style="padding-top:3rem;">
+  <div class="container">
+
+    {% if applications %}
+    <div style="overflow-x:auto;" class="reveal">
+      <table class="app-table">
+        <thead>
+          <tr>
+            <th>Freelancer</th>
+            <th>Skills</th>
+            <th>Status</th>
+            <th style="text-align:right;">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for application in applications %}
+          <tr>
+            <td>
+              <div style="display:flex;align-items:center;gap:0.85rem;">
+                <img src="{{ application.applicant.dp_img.url }}" alt="" style="width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid var(--primary-soft);">
+                <div>
+                  <a href="{% url 'profile' application.applicant.id %}" style="font-weight:600;color:var(--primary);">{{ application.applicant.first_name|default:application.applicant.username }}</a>
+                  <div style="font-size:0.78rem;color:var(--muted);">View profile →</div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <div class="job-meta" style="margin:0;">
+                {% for s in application.applicant.skill.all %}<span class="meta-pill skill">{{ s.name }}</span>{% endfor %}
+              </div>
+            </td>
+            <td>
+              {% if application.is_accepted %}
+              <span class="meta-pill skill" style="background:var(--teal-soft);color:var(--teal);"><i class='bx bxs-check-circle'></i> Accepted</span>
+              {% else %}
+              <span class="meta-pill date"><i class='bx bx-time-five'></i> Pending</span>
+              {% endif %}
+            </td>
+            <td style="text-align:right;">
+              {% if not application.is_accepted %}
+              <a href="{% url 'accept_application' job_id=job.id application_id=application.id %}" class="btn btn-primary btn-sm">Accept &amp; Start <i class='bx bx-check'></i></a>
+              {% else %}
+              <a href="{% url 'activejobs' %}" class="btn btn-ghost btn-sm">Go to dashboard</a>
+              {% endif %}
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    <p class="reveal" style="margin-top:1.4rem;font-size:0.85rem;color:var(--muted);">
+      <i class='bx bx-info-circle'></i> Accepting an applicant starts the project immediately and politely declines all other applications.
+    </p>
+    {% else %}
+    <div class="empty-state reveal">
+      <div class="es-icon"><i class='bx bxs-inbox'></i></div>
+      <h3>No applications yet</h3>
+      <p>Your job is live. Applications from freelancers will show up here as they come in.</p>
+      <a href="{% url 'findwork' %}" class="btn btn-ghost btn-sm">View job on board</a>
+    </div>
+    {% endif %}
+
+  </div>
+</section>
+
+{% endblock %}

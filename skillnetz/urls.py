@@ -1,0 +1,31 @@
+from django.urls import path
+from . import views
+
+urlpatterns=[
+    path("",views.home, name="home"),
+    path("signup/",views.signup,name="signup"),
+    path("signup/client/",views.signupclient,name="signupclient"),
+    path("login/",views.login,name="login"),
+    path("logout/",views.logout,name="logout"),
+    path("otp/",views.otp,name="otp"),
+    path('findtalent/',views.findtalent,name="findtalent"),
+    path('findwork/',views.findwork,name="findwork"),
+    path('aboutus/',views.about,name="about"),
+    path('job/<int:job_id>',views.job_details,name='job_detail'),
+    path('job/<int:job_id>/applications/', views.job_applications, name='job_applications'),
+    path('job/<int:job_id>/apply/<int:application_id>/accept/', views.accept_application, name='accept_application'),
+    path('myjobs/',views.user_jobs,name="myjobs"),
+    path('myjobs/active/',views.activejobs,name="activejobs"),
+    path('mywork/',views.user_work,name="mywork"),
+    path('mywork/working/',views.workingjobs,name="workingjobs"),
+    path('dashboard/<int:job_id>',views.dashboard,name="dashboard"),
+    path('chat_submit/<int:job_id>', views.chat_submit, name='chat_submit'),
+    path('paymentapp_submit/<int:job_id>', views.paymentapp_submit, name='paymentapp_submit'),
+    path('success/<int:job_id>' , views.success , name='success'),
+    path('file_submit/<int:job_id>', views.file_submit, name='file_submit'),
+    path('work_submit/<int:job_id>', views.work_submit, name='work_submit'),
+    path('collect_money/<int:job_id>', views.collect_money, name='collect_money'),
+    path('jobs/saved/', views.saved_jobs, name='saved_jobs'),
+    path('job/<int:job_id>/save/', views.save_job, name='save_job'),
+    path('feedback/', views.feedback_submit, name='feedback_submit'),
+]

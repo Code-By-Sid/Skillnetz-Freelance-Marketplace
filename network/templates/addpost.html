@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}New Post — SkillNetz{% endblock %}
+
+{% block content %}
+
+<section class="section" style="padding-top:calc(var(--nav-h) + 3.5rem);">
+  <div class="container" style="max-width:640px;">
+    <div class="form-card reveal">
+      <div style="display:flex;align-items:center;gap:1rem;margin-bottom:1.6rem;">
+        <span style="display:inline-grid;place-items:center;width:64px;height:64px;border-radius:20px;background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#fff;font-size:1.8rem;box-shadow:0 12px 26px rgba(90,79,243,.35);"><i class='bx bxs-pencil'></i></span>
+        <div>
+          <h1 style="font-size:1.45rem;">Share something</h1>
+          <p style="color:var(--muted);font-size:0.92rem;">Your post appears in the community feed and on your profile.</p>
+        </div>
+      </div>
+
+      <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="{{ form.body.id_for_label }}">{{ form.body.label }}</label>
+          {{ form.body }}
+          {% if form.body.errors %}
+          <p style="color:var(--coral);font-size:0.85rem;margin-top:0.4rem;">{{ form.body.errors.0 }}</p>
+          {% endif %}
+        </div>
+        <div style="display:flex;gap:0.8rem;flex-wrap:wrap;">
+          <button type="submit" class="btn btn-primary">Publish Post <i class='bx bxs-paper-plane'></i></button>
+          <a href="{% url 'posts' %}" class="btn btn-ghost">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

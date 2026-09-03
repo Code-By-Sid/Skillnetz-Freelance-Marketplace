@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SkillNetz — connect talented freelancers with clients. Find work, hire talent, and grow your professional network.">
+  <title>{% block title %}SkillNetz — Where Talent Meets Opportunity{% endblock %}</title>
+  <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="{% static 'css/skillnetz.css' %}">
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+  <!-- ===== Navbar ===== -->
+  <nav class="navbar">
+    <div class="container nav-inner">
+      <a href="{% url 'home' %}" class="brand">
+        <span class="brand-mark"><i class='bx bxs-network-chart'></i></span>
+        Skill<em>Netz</em>
+      </a>
+
+      <div class="nav-overlay"></div>
+      <ul class="nav-links">
+        <li><a href="{% url 'home' %}" class="{% if request.path == '/' %}active{% endif %}">Home</a></li>
+        <li><a href="{% url 'findwork' %}" class="{% if '/findwork' in request.path %}active{% endif %}">Find Work</a></li>
+        <li><a href="{% url 'findtalent' %}" class="{% if '/findtalent' in request.path %}active{% endif %}">Find Talent</a></li>
+        <li><a href="{% url 'mynetwork' %}">Networking</a></li>
+        <li><a href="{% url 'about' %}" class="{% if '/aboutus' in request.path %}active{% endif %}">About</a></li>
+      </ul>
+
+      <div class="nav-actions">
+        {% if user.is_authenticated %}
+        <div class="nav-user">
+          <button class="nav-user-btn" type="button">
+            <img src="{{ user.dp_img.url }}" alt="{{ user.first_name }}">
+            <span class="nav-user-name">{{ user.first_name }}</span>
+            <i class='bx bx-chevron-down'></i>
+          </button>
+          <div class="user-dropdown">
+            <div class="ud-head">
+              <img src="{{ user.dp_img.url }}" alt="">
+              <div>
+                <strong>{{ user.first_name }} {{ user.last_name }}</strong>
+                <span>{{ user.role }}</span>
+              </div>
+            </div>
+            <a class="ud-link" href="{% url 'home' %}"><i class='bx bx-home'></i> Home</a>
+            <a class="ud-link" href="{% url 'myjobs' %}"><i class='bx bxs-briefcase'></i> My Jobs</a>
+            <a class="ud-link" href="{% url 'mywork' %}"><i class='bx bx-briefcase-alt-2'></i> My Work</a>
+            <a class="ud-link" href="{% url 'saved_jobs' %}"><i class='bx bxs-bookmark'></i> Saved Jobs</a>
+            <form action="{% url 'logout' %}" method="POST">
+              {% csrf_token %}
+              <button type="submit" class="ud-logout"><i class='bx bx-log-out'></i> Logout</button>
+            </form>
+          </div>
+        </div>
+        {% else %}
+        <a href="{% url 'login' %}" class="btn btn-ghost btn-sm">Log in</a>
+        <a href="{% url 'signup' %}" class="btn btn-primary btn-sm">Join <i class='bx bx-right-arrow-alt'></i></a>
+        {% endif %}
+        <button class="nav-toggle" type="button" aria-label="Menu"><i class='bx bx-menu'></i></button>
+      </div>
+    </div>
+  </nav>
+
+  {% block content %}{% endblock %}
+
+  <!-- ===== Footer ===== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-about">
+          <a href="{% url 'home' %}" class="brand">
+            <span class="brand-mark"><i class='bx bxs-network-chart'></i></span>
+            Skill<em>Netz</em>
+          </a>
+          <p>The friendly marketplace where freelancers and clients connect, collaborate and grow together. Your skills deserve a great network.</p>
+          <div class="footer-social">
+            <a href="#" aria-label="Facebook"><i class='bx bxl-facebook'></i></a>
+            <a href="#" aria-label="Twitter"><i class='bx bxl-twitter'></i></a>
+            <a href="#" aria-label="LinkedIn"><i class='bx bxl-linkedin'></i></a>
+            <a href="#" aria-label="Instagram"><i class='bx bxl-instagram'></i></a>
+          </div>
+        </div>
+
+        <div class="footer-col">
+          <h4>Explore</h4>
+          <ul class="footer-links">
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'about' %}">About Us</a></li>
+            <li><a href="{% url 'findwork' %}">Find Work</a></li>
+            <li><a href="{% url 'findtalent' %}">Find Talent</a></li>
+            <li><a href="{% url 'mynetwork' %}">Networking</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col">
+          <h4>Account</h4>
+          <ul class="footer-links">
+            <li><a href="{% url 'login' %}">Log in</a></li>
+            <li><a href="{% url 'signup' %}">Join as Freelancer</a></li>
+            <li><a href="{% url 'signup' %}">Join as Client</a></li>
+            <li><a href="{% url 'saved_jobs' %}">Saved Jobs</a></li>
+            <li><a href="{% url 'mywork' %}">My Applications</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col footer-feedback">
+          <h4>How are we doing?</h4>
+          <p style="font-size:0.88rem;color:#9d99c7;">Your feedback helps us improve SkillNetz.</p>
+          <form action="{% url 'feedback_submit' %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="rating" id="feedback-rating" value="5">
+            <div class="stars">
+              <i class='bx bxs-star'></i><i class='bx bxs-star'></i><i class='bx bxs-star'></i><i class='bx bxs-star'></i><i class='bx bxs-star'></i>
+            </div>
+            <textarea name="comment" placeholder="Tell us what you think (optional)..."></textarea>
+            <button type="submit" class="btn btn-primary btn-sm btn-block">Send Feedback</button>
+          </form>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 SkillNetz. All rights reserved.</span>
+        <span class="made-with">Made with <i class='bx bxs-heart'></i> for freelancers everywhere</span>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" type="button" aria-label="Back to top"><i class='bx bx-up-arrow-alt'></i></button>
+
+  <script src="{% static 'js/skillnetz.js' %}"></script>
+  {% block extra_js %}{% endblock %}
+</body>
+</html>

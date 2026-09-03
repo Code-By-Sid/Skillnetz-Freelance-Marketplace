@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Find Work — SkillNetz{% endblock %}
+
+{% block content %}
+
+<header class="page-hero">
+  <div class="container">
+    <span class="eyebrow reveal"><i class='bx bx-briefcase-alt-2'></i> Browse Projects</span>
+    <h1 class="reveal" style="--reveal-delay:.06s">Find work that works for you</h1>
+    <p class="reveal" style="--reveal-delay:.12s">Hand-picked projects from clients who value your skills. Search by keyword or explore by category below.</p>
+
+    <form class="hero-search reveal" style="--reveal-delay:.18s" method="get" action="{% url 'findwork' %}">
+      <i class='bx bx-search-alt-2'></i>
+      <input type="text" name="q" placeholder="Search by job title, skill or keyword..." value="{{ query }}" aria-label="Search jobs">
+      <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+  </div>
+</header>
+
+<section class="section" style="padding-top:3rem;">
+  <div class="container">
+
+    {% if query %}
+      <div class="job-meta reveal" style="margin-bottom:1.8rem;">
+        <span class="meta-pill skill"><i class='bx bx-search'></i> Results for "{{ query }}"</span>
+        <a href="{% url 'findwork' %}" class="chip">✕ Clear search</a>
+      </div>
+    {% endif %}
+
+    {% for skill, jobs in jobs_with_skill.items %}
+      <h2 class="skill-group-title reveal">
+        <i class='bx bxs-purchase-tag-alt' style="color:var(--primary);"></i>
+        {{ skill }}
+        <span class="sgt-count">{{ jobs|length }} job{{ jobs|length|pluralize }}</span>
+        <span class="sgt-line"></span>
+      </h2>
+
+      <div class="card-grid">
+        {% for job in jobs %}
+        <article class="job-card reveal">
+          {% if job.job_image %}
+          <a href="{% url 'job_detail' job.id %}" class="jc-img"><img src="{{ job.job_image.url }}" alt="{{ job.job_title }}" loading="lazy"></a>
+          {% endif %}
+          <div class="jc-body">
+            <h3><a href="{% url 'job_detail' job.id %}">{{ job.job_title }}</a></h3>
+            <p class="jc-desc">{{ job.description|truncatechars:130 }}</p>
+            <div class="job-meta">
+              <span class="meta-pill price"><i class='bx bx-rupee'></i> {{ job.price }}</span>
+              {% for s in job.skill.all %}<span class="meta-pill skill">{{ s.name }}</span>{% endfor %}
+              <span class="meta-pill date"><i class='bx bx-calendar'></i> {{ job.post_date|default_if_none:"New" }}</span>
+            </div>
+            <div class="jc-actions">
+              <a href="{% url 'job_detail' job.id %}" class="btn btn-primary btn-sm">View Details <i class='bx bx-right-arrow-alt'></i></a>
+              {% if user.is_authenticated %}
+                <a href="{% url 'save_job' job.id %}" class="save-btn {% if job.id in saved_job_ids %}saved{% endif %}">
+                  <i class='bx {% if job.id in saved_job_ids %}bxs-bookmark{% else %}bx-bookmark{% endif %}'></i>
+                  {% if job.id in saved_job_ids %}Saved{% else %}Save{% endif %}
+                </a>
+              {% endif %}
+            </div>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+      {% empty %}
+      <div class="empty-state reveal">
+        <div class="es-icon"><i class='bx bx-search-alt'></i></div>
+        <h3>No open jobs right now</h3>
+        <p>
+          {% if query %}
+            We couldn't find anything for "{{ query }}". Try a different keyword —
+          {% else %}
+            New projects are posted every day. Check back soon, or
+          {% endif %}
+        </p>
+        <div style="display:flex;gap:.8rem;justify-content:center;flex-wrap:wrap;">
+          <a href="{% url 'findwork' %}" class="btn btn-ghost btn-sm">Browse all jobs</a>
+          <a href="{% url 'findtalent' %}" class="btn btn-primary btn-sm">Post a Job</a>
+        </div>
+      </div>
+      {% endfor %}
+  </div>
+</section>
+
+{% endblock %}

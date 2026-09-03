@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Claim Money</title>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+}
+
+html {
+  position: relative;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  background-color: #EDEEE9;
+}
+html body {
+  background-color: #EDEEE9;
+  color: #303030;
+  font-family: "Inter", sans-serif;
+  min-height: 100vh;
+  width: 100%;
+  padding: 2.5vh 10vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+html body h1 {
+  font-size: clamp(1rem, 6vw, 10rem);
+  margin: 15vh 0 2rem;
+}
+html body a {
+  text-decoration: underline;
+  color: #303030;
+}
+html body code {
+  font-size: 1rem;
+  padding: 0 0.5rem;
+  background-color: #D8DBCE;
+}
+
+html body .container {
+  width: 100%;
+  max-width: 768px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem 2rem 1.5rem;
+  background-color: #D8DBCE;
+}
+@media (min-width: 768px) {
+  html body .container {
+    flex-direction: row;
+    align-items: center;
+  }
+}
+html body .container .cta-form {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+@media (min-width: 768px) {
+  html body .container .cta-form {
+    margin-bottom: 0;
+    margin-right: 2rem;
+    text-align: left;
+  }
+}
+html body .container .cta-form h2 {
+  font-size: 1.5rem;
+  width: 100%;
+  max-width: 25ch;
+  margin: 0 auto;
+  text-align: center;
+}
+@media (min-width: 768px) {
+  html body .container .cta-form h2 {
+    text-align: left;
+    margin: 0;
+  }
+}
+html body .container .cta-form p {
+  margin-top: 1rem;
+  font-size: 1rem;
+  width: 100%;
+  max-width: 24ch;
+}
+html .form {
+  align-self: center;
+}
+html .form__input {
+  width: clamp(120px, 50vw, 420px);
+  height: 2.5rem;
+  padding: 0 1.25rem;
+  border: 1px solid #303030;
+  border-radius: 2px;
+  margin: 0.625rem auto;
+  transition: all 250ms;
+}
+@media (min-width: 768px) {
+  html .form__input {
+    width: clamp(120px, 35vw, 420px);
+  }
+}
+html .form__input:focus {
+  outline: none;
+  border-top-color: rgba(0, 0, 0, 0.1);
+}
+html .form__input:focus + .form__label, html .form__input:not(:placeholder-shown) + .form__label {
+  transform: translateY(-4.5rem) scale(1);
+  color: #303030;
+}
+html .form__input::placeholder {
+  display: none;
+  color: transparent;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+html .form__input:not(:placeholder-shown) {
+  border-top-color: rgba(0, 0, 0, 0.5);
+}
+html .form__label {
+  font-size: 1rem;
+  color: #909090;
+  display: block;
+  transform: translate(1.25rem, -2.5rem);
+  transform-origin: 0 0;
+  transition: all 500ms;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  pointer-events: none;
+}
+.request-payment {
+    background-color: #ffd801;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+    </style>
+</head>
+<body>
+        <div class="container">
+          <div class="cta-form">
+            <h2>Collect Your Money</h2> 
+          <p>Collect your received payment form us fill the above detail to collect money</p>
+          </div>
+          <form class="form" method="POST">
+            {% csrf_token %}
+            <input type="text" placeholder="Name" class="form__input" name="name" />
+            <label for="name" class="form__label">Name</label>
+      
+            <input type="text" placeholder="Contact No" class="form__input" name="contactno" />
+            <label for="Contact No" class="form__label">Contact No</label>
+      
+            <input type="text" placeholder="IFSC Code" class="form__input" name="ifsccode" />
+            <label for="IFSC Code" class="form__label">IFSC Code</label>
+            
+            <input type="text" placeholder="Account No" class="form__input" name="accountno" />
+            <label for="Account No" class="form__label">Account No</label>
+
+            <input type="submit" class="request-payment" value="submit">
+          </form>
+        </div>
+</body>
+</html>

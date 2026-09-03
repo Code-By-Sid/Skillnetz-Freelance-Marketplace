@@ -1,0 +1,14 @@
+<html>
+    <head>
+        <title> HOME</title>
+    </head>
+    <body>
+        {% if user.is_authenticated %}
+        <!-- Your authenticated user content here -->
+        <p>{{user.username}}</p>
+    {% else %}
+        <!-- Your content for non-authenticated users here -->
+        <p>please login</p>
+    {% endif %}
+    </body>
+</html>

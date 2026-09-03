@@ -1,0 +1,524 @@
+/* ===== Google Font Import - Poppins ===== */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    transition: all 0.4s ease;
+}
+
+
+/* ===== Colours ===== */
+:root{
+    --body-color: #E4E9F7;
+    --nav-color: #fefaef;
+    --side-nav: #010718;
+    --text-color: #010718;
+    --search-bar: #F2F2F2;
+    --search-text: #010718;
+}
+
+body{
+    height: 100vh;
+    background-color:#fefaef;
+    display: flex;
+    flex-direction: column;
+}
+
+nav{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 60px;
+    width: 100%;
+    background-color: var(--nav-color);
+    z-index: 100;
+}
+
+body.dark nav{
+    border: 1px solid #393838;
+
+}
+
+nav .nav-bar{
+    position: relative;
+    height: 100%;
+    max-width: 1000px;
+    width: 100%;
+    background-color: var(--nav-color);
+    margin: 0 auto;
+    padding: 0 30px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+nav .nav-bar .sidebarOpen{
+    color: var(--text-color);
+    font-size: 25px;
+    padding: 5px;
+    cursor: pointer;
+    display: none;
+}
+
+nav .nav-bar .logo a{
+    font-size: 25px;
+    font-weight: 500;
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+.menu .logo-toggle{
+    display: none;
+}
+
+.nav-bar .nav-links{
+    display: flex;
+    align-items: center;
+}
+
+.nav-bar .nav-links li{
+    margin: 0 5px;
+    list-style: none;
+}
+
+.nav-links li a{
+    position: relative;
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--side-nav);
+    text-decoration: none;
+    padding: 10px;
+}
+
+.nav-links li a::before{
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    height: 6px;
+    width: 6px;
+    border-radius: 50%;
+    background-color: var(--side-nav);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.nav-links li:hover a::before{
+    opacity: 1;
+}
+
+.nav-bar .darkLight-searchBox{
+    display: flex;
+    align-items: center;
+}
+
+.darkLight-searchBox .dark-light{
+    height: 40px;
+    width: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 5px;
+}
+
+.dark-light .nav-links{
+    display: flex;
+    align-items: center;
+}
+
+.dark-light .nav-links li{
+    margin: 0 5px;
+    list-style: none;
+}
+.nav-links a{
+    position: relative;
+    font-size: 17px;
+    font-weight: 400;
+    color: var(--side-nav);
+    text-decoration: none;
+    padding: 10px;
+}
+.btn{
+    width: 90%;
+    height: 30px;
+    border-radius: 6px;
+    background-color: var(--nav-color);
+    border: 1.5px solid #ffd801;
+    outline: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.4s ease;
+}
+.btn:hover {
+    background-color:#f5de5b;
+  }
+.lbtn{
+    width: 90%;
+    height: 30px;
+    border-radius: 6px;
+    background-color: var(--nav-color);
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.4s ease;
+}
+@media (max-width: 790px) {
+    nav .nav-bar .sidebarOpen{
+        display: block;
+    }
+
+    .menu{
+        position: fixed;
+        height: 100%;
+        width: 320px;
+        left: -100%;
+        top: 0;
+        padding: 20px;
+        background-color:#ffd801;
+        z-index: 100;
+        transition: all 0.4s ease;
+    }
+
+    nav.active .menu{
+        left: -0%;
+    }
+
+    nav.active .nav-bar .navLogo a{
+        opacity: 0;
+        transition: all 0.3s ease;
+    }
+
+    .menu .logo-toggle{
+        display: block;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .logo-toggle .siderbarClose{
+        color: var(--text-color);
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+    .nav-bar .nav-links{
+        flex-direction: column;
+        padding-top: 30px;
+    }
+
+    .nav-links li a{
+        display: block;
+        margin-top: 20px;
+    }
+    .btn{
+        display: none;
+    }
+    .lbtn{
+        width: 90%;
+        height: 30px;
+        border-radius: 6px;
+        background-color: var(--nav-color);
+        border: 1.5px solid #ffd801;
+        outline: none;
+        cursor: pointer;
+        font-size: 1rem;
+        font-weight: 600;
+        transition: all 0.4s ease;
+    }
+    .lbtn:hover {
+        background-color:#f5de5b;
+      }
+    .login {
+        background-image:none !important;
+    }
+}
+
+
+
+.login {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    transition: all 3s ease;
+    margin: 2.5%;
+  }
+  
+  .sec {
+      position: absolute;
+      max-width: 700px;
+      background-color: transparent;
+      border: 2px solid black;
+      border-radius: 20px;
+      backdrop-filter: blur(55px);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1rem 3rem;
+      top: 10%;
+  }
+  
+  h1 {
+      font-size: 2rem;
+      color:black;
+      text-align: center;
+  }
+  
+  .full{
+    display: flex;
+}
+  .inputbox {
+      position: relative;
+      margin: 20px 0;
+      max-width: 310px;
+      border-bottom: 2px solid black;
+  }
+  .inputbox_f {
+    position:relative;
+    margin-top: 10px;
+    max-width: 100px;
+    border-bottom: 2px solid black;
+}
+.inputbox_l {
+    position:relative;
+    max-width: 100px;
+    margin-left: 20%;
+    margin-top: 10px;
+    border-bottom: 2px solid black;
+}
+
+.radio_input{
+    position:relative;
+    margin-top: 20px;
+}
+  .inputbox label,.inputbox_f label,.inputbox_l label {
+      position: absolute;
+      top: 30%;
+      left: 5px;
+      transform: translateY(-30%);
+      color: black;
+      font-size: 1rem;
+      pointer-events: none;
+      transition: all 0.5s ease-in-out;
+  }
+  
+  input:focus ~ label, 
+  input:valid ~ label {
+      top: -5px;
+  }
+  
+  .inputbox input,.inputbox_f input,.inputbox_l input{
+      width: 100%;
+      height: 60px;
+      background: transparent;
+      border: none;
+      outline: none;
+      font-size: 1rem;
+      padding: 0 35px 0 5px;
+      color: black;
+  }
+  
+  .inputbox ion-icon {
+      position: absolute;
+      right: 8px;
+      color: black;
+      font-size: 1.2rem;
+      top: 20px;
+  }
+  
+  .forget {
+      margin: 35px 0;
+      font-size: 0.85rem;
+      color: black;
+      display: flex;
+      justify-content: space-between;
+   
+  }
+  
+  .forget label {
+      display: flex;
+      align-items: center;
+  }
+  
+  .forget label input {
+      margin-right: 3px;
+  }
+  
+  .forget a {
+      color: black;
+      text-decoration: none;
+      font-weight: 600;
+  }
+  
+  .forget a:hover {
+      text-decoration: underline;
+  }
+  
+  .but {
+      width: 100%;
+      height: 40px;
+      border-radius: 40px;
+      background-color: #ffd801;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: all 0.4s ease;
+  }
+  
+  .but:hover {
+    background-color:#f5de5b;
+  }
+  
+  .register {
+      font-size: 0.9rem;
+      color: black;
+      text-align: center;
+      margin: 25px 0 10px;
+  }
+  
+  .register p a {
+      text-decoration: none;
+      color: black;
+      font-weight: 600;
+  }
+  
+  .register p a:hover {
+      text-decoration: underline;
+  }
+  .footer {
+    top: 145%;
+    width: 98%;
+    background: #10182F;
+    border-radius: 6px;
+    margin:15px;
+  }
+  
+  .footer .footer-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 3.5rem;
+    padding: 60px;
+  }
+  
+  .footer-row .footer-col h4 {
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 400;
+  }
+  
+  .footer-col .links {
+    margin-top: 20px;
+  }
+  
+  .footer-col .links li {
+    list-style: none;
+    margin-bottom: 10px;
+  }
+  
+  .footer-col .links li a {
+    text-decoration: none;
+    color: #bfbfbf;
+  }
+  
+  .footer-col .links li a:hover {
+    color: #fff;
+  }
+  
+  .footer-col p {
+    margin: 20px 0;
+    color: #bfbfbf;
+    max-width: 300px;
+  }
+  
+  .footer-col form {
+    display: flex;
+    gap: 5px;
+  }
+  
+  .footer-col input {
+    height: 40px;
+    border-radius: 6px;
+    background: none;
+    outline: none;
+    border: 1px solid #7489C6 ;
+    caret-color: #fff;
+    color: #fff;
+    padding-left: 10px;
+  }
+  
+  .footer-col input::placeholder {
+    color: #ccc;
+  }
+  
+   .footer-col form button {
+    background: #fff;
+    outline: none;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: 0.2s ease;
+  }
+  
+  .footer-col form button:hover {
+    background: #cecccc;
+  }
+  
+  .footer-col .icons {
+    display: flex;
+    margin-top: 30px;
+    gap: 30px;
+    cursor: pointer;
+  }
+  
+  .footer-col .icons i {
+    color: #afb6c7;
+  }
+  
+  .footer-col .icons i:hover  {
+    color: #fff;
+  }
+  
+  @media (max-width: 768px) {
+    .footer {
+      position: relative;
+      bottom: 0;
+      left: 0;
+      transform: none;
+      width: 100%;
+      border-radius: 0;
+      top: 5%;
+    }
+  
+    .footer .footer-row {
+      padding: 20px;
+      gap: 1rem;
+    }
+  
+    .footer-col form {
+      display: block;
+    }
+  
+    .footer-col form :where(input, button) {
+      width: 100%;
+    }
+  
+    .footer-col form button {
+      margin: 10px 0 0 0;
+    }
+  }

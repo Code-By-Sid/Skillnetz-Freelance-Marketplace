@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Networking — Discover People — SkillNetz{% endblock %}
+
+{% block content %}
+
+<header class="page-hero">
+  <div class="container">
+    <span class="eyebrow reveal"><i class='bx bxs-group'></i> Networking</span>
+    <h1 class="reveal" style="--reveal-delay:.06s;">Discover amazing people</h1>
+    <p class="reveal" style="--reveal-delay:.12s;">Grow your professional circle — follow inspiring freelancers and clients, then collaborate on your next project.</p>
+    <div class="reveal" style="--reveal-delay:.18s;display:flex;gap:.6rem;margin-top:1.6rem;flex-wrap:wrap;">
+      <a href="{% url 'profile' request.user.id %}" class="chip"><i class='bx bxs-id-card'></i> My Profile</a>
+      <a href="{% url 'posts' %}" class="chip"><i class='bx bxs-message-square-dots'></i> Community Posts</a>
+      <a href="{% url 'display_resume' user_id=request.user.id %}" class="chip"><i class='bx bxs-file'></i> My Resume</a>
+    </div>
+  </div>
+</header>
+
+<section class="section" style="padding-top:3rem;">
+  <div class="container">
+
+    {% if messages %}
+      {% for message in messages %}
+      <div style="background:var(--teal-soft);border:1px solid #b5ece3;color:#0a7d6e;padding:0.85rem 1.2rem;border-radius:14px;font-size:0.92rem;margin-bottom:1.5rem;">
+        <i class='bx bx-check-circle'></i> {{ message }}
+      </div>
+      {% endfor %}
+    {% endif %}
+
+    <h2 class="skill-group-title reveal">
+      <i class='bx bxs-user-badge' style="color:var(--primary);"></i>
+      People to follow
+      <span class="sgt-count">{{ profiles|length }} member{{ profiles|length|pluralize }}</span>
+      <span class="sgt-line"></span>
+    </h2>
+
+    {% if profiles %}
+    <div class="people-grid">
+      {% for profile in profiles %}
+      <div class="person-card reveal">
+        <div class="pc-avatar"><img src="{{ profile.user.dp_img.url }}" alt="{{ profile.user.first_name }}"></div>
+        <h3 style="text-transform:capitalize;">{{ profile.user.first_name|default:profile.user.username }}</h3>
+        <div class="pc-username">@{{ profile.user.username }} · {{ profile.user.role }}</div>
+        <div class="pc-stats">
+          <div><strong>{{ profile.followed_by.all.count }}</strong><span>Followers</span></div>
+          <div><strong>{{ profile.follows.count }}</strong><span>Following</span></div>
+        </div>
+        <a href="{% url 'profile' profile.user.id %}" class="btn btn-ghost btn-sm">View Profile <i class='bx bx-right-arrow-alt'></i></a>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state reveal">
+      <div class="es-icon"><i class='bx bxs-group'></i></div>
+      <h3>No other members yet</h3>
+      <p>You're early! Invite friends and colleagues to join SkillNetz and build your network.</p>
+    </div>
+    {% endif %}
+
+  </div>
+</section>
+
+{% endblock %}

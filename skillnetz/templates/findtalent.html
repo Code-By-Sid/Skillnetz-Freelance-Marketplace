@@ -1,0 +1,213 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Find Talent — Post a Job — SkillNetz{% endblock %}
+
+{% block content %}
+
+<header class="page-hero">
+  <div class="container">
+    <span class="eyebrow amber reveal"><i class='bx bxs-magic-wand'></i> Hire in minutes</span>
+    <h1 class="reveal" style="--reveal-delay:.06s">Find the perfect freelancer for your project</h1>
+    <p class="reveal" style="--reveal-delay:.12s">Post your project and receive applications from skilled freelancers — or browse the network and hand-pick your match.</p>
+  </div>
+</header>
+
+<section class="section" style="padding-top:3rem;">
+  <div class="container">
+    <div class="split" style="align-items:start;">
+      <!-- Visual / intro side -->
+      <div class="split-media reveal-left reveal" style="position:sticky;top:calc(var(--nav-h) + 1.2rem);">
+        <div class="media-blob violet"></div>
+        <div class="media-blob amber"></div>
+        <div class="media-frame"><img src="{% static 'home-img/home.gif' %}" alt="Welcome, let's post a job!" style="aspect-ratio:1.05;"></div>
+        <div class="float-card fc-rating">
+          <span class="fc-icon"><i class='bx bxs-stopwatch'></i></span>
+          <div><strong>2 minutes</strong><span>to post a job</span></div>
+        </div>
+      </div>
+
+      <!-- Wizard side -->
+      <div class="split-body reveal-right reveal">
+        <form method="POST" enctype="multipart/form-data" class="form-card wizard" id="postjob-form">
+          {% csrf_token %}
+
+          <!-- Intro panel -->
+          <div class="wizard-step active" id="wizard-intro">
+            <div style="text-align:center;padding:1rem 0.5rem;">
+              <span style="display:inline-grid;place-items:center;width:84px;height:84px;border-radius:26px;background:linear-gradient(135deg,var(--primary),var(--primary-2));color:#fff;font-size:2.4rem;box-shadow:0 14px 30px rgba(90,79,243,.35);margin-bottom:1.3rem;"><i class='bx bxs-smile'></i></span>
+              <h2 style="font-size:1.6rem;">Welcome, let's post a job!</h2>
+              <p style="color:var(--muted);max-width:26rem;margin:0.8rem auto 1.8rem;">Get proposals from talented freelancers by describing what you need. It only takes a few steps.</p>
+              <button type="button" class="btn btn-primary" id="start-wizard">Post a Job <i class='bx bx-right-arrow-alt'></i></button>
+              <p style="margin-top:1.6rem;font-size:.85rem;color:var(--muted);">Prefer to browse first? <a href="{% url 'mynetwork' %}" style="color:var(--primary);font-weight:600;">Explore our network</a></p>
+            </div>
+          </div>
+
+          <!-- Step 1: title + image -->
+          <div class="wizard-step" id="wizard-step-1">
+            <span class="eyebrow"><i class='bx bx-pencil'></i> Step 1 of 4</span>
+            <h2 style="font-size:1.45rem;margin-bottom:1.4rem;">Start with a strong title</h2>
+            <div class="form-group">
+              <label for="job-title">Job title</label>
+              <input class="form-control" type="text" id="job-title" name="job-title" placeholder="e.g. Modern logo design for a coffee brand" required>
+            </div>
+            <div class="form-group">
+              <label>Cover image (optional but recommended)</label>
+              <div class="upload-box" id="upload-box">
+                <input type="file" name="image" id="file-upload" accept="image/*" hidden>
+                <i class='bx bx-cloud-upload'></i>
+                <strong>Click or drag an image here</strong>
+                <span>PNG, JPG or GIF up to 5MB</span>
+                <img src="#" alt="Preview">
+              </div>
+            </div>
+          </div>
+
+          <!-- Step 2: skills -->
+          <div class="wizard-step" id="wizard-step-2">
+            <span class="eyebrow"><i class='bx bxs-purchase-tag-alt'></i> Step 2 of 4</span>
+            <h2 style="font-size:1.45rem;margin-bottom:1.4rem;">Which skills do you need?</h2>
+            <div class="skill-select" id="skill-pills">
+              <span class="skill-pill" data-skill="Content Writing">Content Writing</span>
+              <span class="skill-pill" data-skill="Translation">Translation</span>
+              <span class="skill-pill" data-skill="Web Designing">Web Designing</span>
+              <span class="skill-pill" data-skill="Graphic Designing">Graphic Designing</span>
+              <span class="skill-pill" data-skill="Data Entry">Data Entry</span>
+              <span class="skill-pill" data-skill="Wordpress">Wordpress</span>
+              <span class="skill-pill" data-skill="Video Editing">Video Editing</span>
+              <span class="skill-pill" data-skill="Photoshop">Photoshop</span>
+              <span class="skill-pill" data-skill="Programming">Programming</span>
+              <span class="skill-pill" data-skill="Content Creation">Content Creation</span>
+            </div>
+            <p class="selected-heading">Selected skills</p>
+            <p id="selected-preview" style="font-size:.9rem;color:var(--muted);">Nothing selected yet — tap a few skills above.</p>
+            <input type="hidden" name="skill" id="skillInput" value="">
+          </div>
+
+          <!-- Step 3: budget + duration -->
+          <div class="wizard-step" id="wizard-step-3">
+            <span class="eyebrow"><i class='bx bxs-coin'></i> Step 3 of 4</span>
+            <h2 style="font-size:1.45rem;margin-bottom:1.4rem;">Set your budget</h2>
+            <div class="form-group">
+              <label for="budget-range">Budget: <strong id="budget-value" style="color:var(--primary);">₹500</strong></label>
+              <input type="range" id="budget-range" name="budget" min="100" max="10000" step="100" value="500">
+              <div style="display:flex;justify-content:space-between;font-size:.8rem;color:var(--muted);margin-top:.4rem;">
+                <span>₹100</span><span>₹10,000</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="duration-select">Expected duration</label>
+              <select class="form-control" id="duration-select" name="duration">
+                <option value="1 week">1 week</option>
+                <option value="2 weeks">2 weeks</option>
+                <option value="3 weeks">3 weeks</option>
+                <option value="1 month">1 month</option>
+                <option value="3 months">3 months</option>
+                <option value="6 months">6 months</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Step 4: description -->
+          <div class="wizard-step" id="wizard-step-4">
+            <span class="eyebrow"><i class='bx bx-detail'></i> Step 4 of 4</span>
+            <h2 style="font-size:1.45rem;margin-bottom:1.4rem;">Describe the job</h2>
+            <div class="form-group">
+              <label for="description">Job description</label>
+              <textarea class="form-control" id="description" name="description" rows="8" placeholder="Tell freelancers what you need, your goals, and any must-haves. The clearer you are, the better the proposals..." required></textarea>
+            </div>
+            <button type="submit" class="btn btn-accent btn-block" style="padding:1rem;">Publish My Job <i class='bx bxs-rocket'></i></button>
+          </div>
+
+          <!-- Progress -->
+          <div class="wizard-progress" id="wizard-progress" style="display:none;">
+            <div class="wp-node" data-step="1"><span class="wp-dot">1</span><span class="wp-label">Title</span><span class="wp-bar"></span></div>
+            <div class="wp-node" data-step="2"><span class="wp-dot">2</span><span class="wp-label">Skills</span><span class="wp-bar"></span></div>
+            <div class="wp-node" data-step="3"><span class="wp-dot">3</span><span class="wp-label">Budget</span><span class="wp-bar"></span></div>
+            <div class="wp-node" data-step="4"><span class="wp-dot">4</span><span class="wp-label">Describe</span><span class="wp-bar"></span></div>
+          </div>
+
+          <div class="wizard-actions" id="wizard-actions" style="display:none;">
+            <button type="button" class="btn btn-ghost" id="wizard-back"><i class='bx bx-left-arrow-alt'></i> Back</button>
+            <button type="button" class="btn btn-primary" id="wizard-next">Next <i class='bx bx-right-arrow-alt'></i></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(function () {
+  var form = document.getElementById('postjob-form');
+  var steps = ['wizard-intro', 'wizard-step-1', 'wizard-step-2', 'wizard-step-3', 'wizard-step-4'];
+  var current = 0;
+  var progress = document.getElementById('wizard-progress');
+  var actions = document.getElementById('wizard-actions');
+  var nodes = document.querySelectorAll('.wp-node');
+
+  function render() {
+    steps.forEach(function (id) {
+      document.getElementById(id).classList.toggle('active', id === steps[current]);
+    });
+    var showChrome = current > 0;
+    progress.style.display = showChrome ? 'flex' : 'none';
+    actions.style.display = showChrome ? 'flex' : 'none';
+    document.getElementById('wizard-back').style.visibility = current === 1 ? 'hidden' : 'visible';
+    document.getElementById('wizard-next').style.display = current === steps.length - 1 ? 'none' : 'inline-flex';
+    nodes.forEach(function (n) {
+      var s = parseInt(n.getAttribute('data-step'), 10);
+      n.classList.toggle('active', s === current);
+      n.classList.toggle('done', s < current);
+    });
+  }
+
+  function next() {
+    if (current === steps.length - 1) return;
+    if (current === 1 && !document.getElementById('job-title').value.trim()) {
+      showToast('Please give your job a title first.');
+      document.getElementById('job-title').focus();
+      return;
+    }
+    if (current === 2 && !document.getElementById('skillInput').value) {
+      showToast('Select at least one skill so freelancers can find you.');
+      return;
+    }
+    current++;
+    render();
+    window.scrollTo({ top: form.getBoundingClientRect().top + window.scrollY - 120, behavior: 'smooth' });
+  }
+
+  document.getElementById('start-wizard').addEventListener('click', function () { current = 1; render(); });
+  document.getElementById('wizard-next').addEventListener('click', next);
+  document.getElementById('wizard-back').addEventListener('click', function () {
+    if (current > 1) { current--; render(); }
+  });
+
+  /* Skill pills + live preview */
+  var pills = document.getElementById('skill-pills');
+  var hidden = document.getElementById('skillInput');
+  var preview = document.getElementById('selected-preview');
+  pills.querySelectorAll('.skill-pill').forEach(function (pill) {
+    pill.addEventListener('click', function () {
+      pill.classList.toggle('selected');
+      var names = Array.prototype.map.call(pills.querySelectorAll('.skill-pill.selected'), function (p) {
+        return p.getAttribute('data-skill');
+      });
+      hidden.value = names.join(',');
+      preview.innerHTML = names.length
+        ? names.map(function (n) { return '<span class="chip" style="margin:0 .35rem .35rem 0;">' + n + '</span>'; }).join('')
+        : 'Nothing selected yet — tap a few skills above.';
+    });
+  });
+
+  /* Upload preview */
+  initUploadPreview(document.getElementById('file-upload'), document.getElementById('upload-box'));
+
+  render();
+})();
+</script>
+{% endblock %}

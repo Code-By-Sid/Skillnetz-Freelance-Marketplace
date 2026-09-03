@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Log in — SkillNetz{% endblock %}
+
+{% block content %}
+<div class="auth-wrap">
+  <div class="auth-visual reveal-left reveal">
+    <div class="av-bg"><img src="{% static 'login-img/login.gif' %}" alt="Welcome back to SkillNetz"></div>
+    <div class="av-overlay"></div>
+    <div class="av-content">
+      <h2>Welcome back! 👋</h2>
+      <p>Your next project, client or collaborator is waiting for you on the other side of this login.</p>
+      <ul class="av-points">
+        <li><i class='bx bx-check'></i> Apply to jobs in one click</li>
+        <li><i class='bx bx-check'></i> Chat with clients &amp; share files</li>
+        <li><i class='bx bx-check'></i> Secure payouts to your bank</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="auth-panel">
+    <div class="auth-card reveal-right reveal">
+      <div class="form-card">
+        <h1>Log in</h1>
+        <p class="auth-sub">Enter your details to continue</p>
+
+        {% if error %}
+        <div style="background:var(--coral-soft);border:1px solid #ffc9c2;color:#c0392b;padding:0.85rem 1.1rem;border-radius:13px;font-size:0.9rem;margin-bottom:1.3rem;">
+          <i class='bx bx-error-circle'></i> {{ error }}
+        </div>
+        {% endif %}
+
+        <form method="POST">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="login-email">Email</label>
+            <input class="form-control" type="email" id="login-email" name="username" placeholder="you@example.com" required>
+          </div>
+          <div class="form-group">
+            <label for="login-password">Password</label>
+            <input class="form-control" type="password" id="login-password" name="password" placeholder="••••••••" required>
+          </div>
+          <div class="form-group" style="display:flex;justify-content:space-between;align-items:center;">
+            <label style="display:flex;align-items:center;gap:0.5rem;margin:0;font-weight:500;font-size:0.9rem;">
+              <input type="checkbox" name="remember" style="accent-color:var(--primary);width:16px;height:16px;"> Remember me
+            </label>
+            <a href="#" style="font-size:0.88rem;color:var(--primary);font-weight:600;">Forgot password?</a>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block" style="padding:0.95rem;">Log in <i class='bx bx-right-arrow-alt'></i></button>
+        </form>
+
+        <p class="auth-alt">Don't have an account? <a href="{% url 'signup' %}">Join SkillNetz</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Page not found — SkillNetz{% endblock %}
+
+{% block content %}
+<div class="error-wrap">
+  <div>
+    <div class="error-code reveal">404</div>
+    <h1 class="reveal" style="--reveal-delay:.08s;font-size:clamp(1.4rem,3vw,2rem);margin:0.6rem 0;">This page wandered off to find work</h1>
+    <p class="reveal" style="--reveal-delay:.14s;color:var(--muted);max-width:32rem;margin:0 auto 2rem;">
+      The link may be broken, or the page may have moved. Let's get you back to something useful.
+    </p>
+    <div class="reveal" style="--reveal-delay:.2s;display:flex;gap:0.9rem;justify-content:center;flex-wrap:wrap;">
+      <a href="{% url 'home' %}" class="btn btn-primary"><i class='bx bx-home'></i> Back to Home</a>
+      <a href="{% url 'findwork' %}" class="btn btn-ghost">Browse Jobs</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

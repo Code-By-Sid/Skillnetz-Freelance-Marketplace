@@ -1,0 +1,452 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}SkillNetz — Connecting Talent, Empowering Careers{% endblock %}
+
+{% block content %}
+
+<!-- ================= HERO ================= -->
+<header class="hero">
+  <div class="container hero-grid">
+    <div class="hero-copy">
+      <div class="hero-badge reveal">
+        <span class="pulse-dot"><i class='bx bxs-check'></i></span>
+        Trusted by <strong>&nbsp;12+&nbsp;</strong> freelancers &amp; clients
+      </div>
+
+      <h1 class="reveal" style="--reveal-delay:.08s">
+        Connecting Talent,<br>
+        <span class="grad">Empowering</span>
+        <span data-type-words='["Careers.","Freelancers.","Businesses.","Dreams."]'>Careers.</span>
+      </h1>
+
+      <p class="hero-sub reveal" style="--reveal-delay:.16s">
+        SkillNetz is the friendly marketplace where skilled freelancers meet great clients.
+        Find projects that match your passion — or hire the perfect talent to bring your vision to life.
+      </p>
+
+      <form class="hero-search reveal" style="--reveal-delay:.24s" action="{% url 'findwork' %}" method="get">
+        <i class='bx bx-search-alt-2'></i>
+        <input type="text" name="q" placeholder="Search jobs, skills, or projects..." aria-label="Search jobs">
+        <button type="submit" class="btn btn-primary">Search</button>
+      </form>
+
+      <div class="hero-popular reveal" style="--reveal-delay:.3s">
+        Popular:
+        <a class="chip" href="{% url 'findwork' %}?q=web">Web Design</a>
+        <a class="chip" href="{% url 'findwork' %}?q=graphic">Graphic Design</a>
+        <a class="chip" href="{% url 'findwork' %}?q=writing">Writing</a>
+        <a class="chip" href="{% url 'findwork' %}?q=programming">Programming</a>
+      </div>
+
+      <div class="hero-stats reveal" style="--reveal-delay:.38s">
+        <div class="hero-stat"><strong><span data-count="12">0</span><span class="counter-suffix">+</span></strong><span>Active Freelancers</span></div>
+        <div class="hero-stat"><strong><span data-count="8">0</span><span class="counter-suffix">+</span></strong><span>Projects Completed</span></div>
+        <div class="hero-stat"><strong><span data-count="4.3" data-decimals="1">0</span><span class="counter-suffix">★</span></strong><span>Average Rating</span></div>
+      </div>
+    </div>
+
+    <div class="hero-visual reveal-zoom reveal" style="--reveal-delay:.2s">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+
+      <div class="hero-frame">
+        <div class="slide active"><img src="{% static 'home-img/gif 1.gif' %}" alt="Freelancer working"></div>
+        <div class="slide"><img src="{% static 'home-img/gif 3.gif' %}" alt="Team collaboration"></div>
+        <div class="slide"><img src="{% static 'home-img/gif 2.gif' %}" alt="Creative work"></div>
+        <div class="slide"><img src="{% static 'home-img/gif 4.gif' %}" alt="Growing career"></div>
+        <div class="slide"><img src="{% static 'home-img/gif 5.gif' %}" alt="Success story"></div>
+        <div class="slide"><img src="{% static 'home-img/gif 6.gif' %}" alt="Remote work"></div>
+        <div class="slide-dots">
+          <span class="active"></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+      </div>
+
+      <div class="float-card fc-hired">
+        <span class="fc-icon"><i class='bx bxs-badge-check'></i></span>
+        <div><strong>Hired!</strong><span>Ananya got the work 🎉</span></div>
+      </div>
+      <div class="float-card fc-rating">
+        <span class="fc-icon"><i class='bx bxs-star'></i></span>
+        <div><strong>4.3 / 5.0</strong><span>20+ reviews</span></div>
+      </div>
+      <div class="float-card fc-pay">
+        <span class="fc-icon" style="padding:0;background:none;"><img src="{% static 'home-img/coin.jpg' %}" alt="Secure payments" style="width:42px;height:42px;border-radius:13px;object-fit:cover;"></span>
+        <div><strong>Secure Payouts</strong><span>Escrow-protected payments</span></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= FACTS & TIPS TICKER ================= -->
+<div class="marquee-wrap">
+  <div class="marquee" id="facts-marquee">
+    <div class="mq-item"><i class='bx bxs-bulb'></i> Tip: Always communicate clearly with clients to ensure successful projects</div>
+    <div class="mq-item"><i class='bx bxs-rocket'></i> Fact: Over 35% of the global workforce is now freelancing</div>
+    <div class="mq-item"><i class='bx bxs-bulb'></i> Tip: Keep your profile updated with your latest skills and projects</div>
+    <div class="mq-item"><i class='bx bxs-rocket'></i> Fact: Over 60% of freelancers find work through networking</div>
+    <div class="mq-item"><i class='bx bxs-bulb'></i> Tip: Set and clarify payment terms upfront with clients</div>
+    <div class="mq-item"><i class='bx bxs-rocket'></i> Fact: Freelancers contribute significantly to the global economy</div>
+  </div>
+</div>
+
+<!-- ================= SERVICES ================= -->
+<section class="section">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="eyebrow"><i class='bx bx-grid-alt'></i> Our Categories</span>
+      <h2>You need it, we've got it</h2>
+      <p>From design to development, explore talented professionals across every category — all in one place.</p>
+    </div>
+  </div>
+
+  <div class="services-marquee reveal">
+    <div class="services-track">
+      <!-- Set A -->
+      <div class="service-card">
+        <div class="sc-img"><img src="{% static 'home-img/service1.gif' %}" alt="Graphic design"><span class="sc-tag">Popular</span></div>
+        <div class="sc-body"><h4><i class='bx bxs-palette'></i> Graphic Design</h4><p>Eye-catching visuals, branding and illustrations crafted to make your business stand out.</p></div>
+      </div>
+      <div class="service-card">
+        <div class="sc-img"><img src="{% static 'home-img/service2.gif' %}" alt="Digital marketing"></div>
+        <div class="sc-body"><h4><i class='bx bxs-megaphone'></i> Digital Marketing</h4><p>Boost your reach with SEO, social media and campaigns that actually convert.</p></div>
+      </div>
+      <div class="service-card">
+        <div class="sc-img"><img src="{% static 'home-img/service3.gif' %}" alt="Writing and translation"></div>
+        <div class="sc-body"><h4><i class='bx bxs-pen'></i> Writing &amp; Translation</h4><p>Compelling copy, articles and translations that speak your audience's language.</p></div>
+      </div>
+      <div class="service-card">
+        <div class="sc-img"><img src="{% static 'home-img/service4.gif' %}" alt="Video and animation"></div>
+        <div class="sc-body"><h4><i class='bx bxs-videos'></i> Video &amp; Animation</h4><p>Animated explainers, edits and motion graphics that tell your story beautifully.</p></div>
+      </div>
+      <div class="service-card">
+        <div class="sc-img"><img src="{% static 'home-img/service5.gif' %}" alt="Music and audio"><span class="sc-tag">Trending</span></div>
+        <div class="sc-body"><h4><i class='bx bxs-music'></i> Music &amp; Audio</h4><p>Sound design, voice-overs and audio production that gives your project a voice.</p></div>
+      </div>
+      <div class="service-card">
+        <div class="sc-img"><img src="{% static 'home-img/service6.gif' %}" alt="Programming"></div>
+        <div class="sc-body"><h4><i class='bx bxs-code-alt'></i> Programming</h4><p>Websites, apps and automations built with clean, modern code by vetted developers.</p></div>
+      </div>
+      <div class="service-card">
+        <div class="sc-img"><img src="{% static 'home-img/service7.gif' %}" alt="Photography"></div>
+        <div class="sc-body"><h4><i class='bx bxs-camera'></i> Photography</h4><p>Stunning product, portrait and event photography that captures the moment.</p></div>
+      </div>
+      <!-- Set B (duplicate for seamless loop) -->
+      <div class="service-card">
+        <div class="sc-img"><img src="{% static 'home-img/service1.gif' %}" alt="Graphic design"><span class="sc-tag">Popular</span></div>
+        <div class="sc-body"><h4><i class='bx bxs-palette'></i> Graphic Design</h4><p>Eye-catching visuals, branding and illustrations crafted to make your business stand out.</p></div>
+      </div>
+      <div class="service-card">
+        <div class="sc-img"><img src="{% static 'home-img/service2.gif' %}" alt="Digital marketing"></div>
+        <div class="sc-body"><h4><i class='bx bxs-megaphone'></i> Digital Marketing</h4><p>Boost your reach with SEO, social media and campaigns that actually convert.</p></div>
+      </div>
+      <div class="service-card">
+        <div class="sc-img"><img src="{% static 'home-img/service3.gif' %}" alt="Writing and translation"></div>
+        <div class="sc-body"><h4><i class='bx bxs-pen'></i> Writing &amp; Translation</h4><p>Compelling copy, articles and translations that speak your audience's language.</p></div>
+      </div>
+      <div class="service-card">
+        <div class="sc-img"><img src="{% static 'home-img/service4.gif' %}" alt="Video and animation"></div>
+        <div class="sc-body"><h4><i class='bx bxs-videos'></i> Video &amp; Animation</h4><p>Animated explainers, edits and motion graphics that tell your story beautifully.</p></div>
+      </div>
+      <div class="service-card">
+        <div class="sc-img"><img src="{% static 'home-img/service5.gif' %}" alt="Music and audio"><span class="sc-tag">Trending</span></div>
+        <div class="sc-body"><h4><i class='bx bxs-music'></i> Music &amp; Audio</h4><p>Sound design, voice-overs and audio production that gives your project a voice.</p></div>
+      </div>
+      <div class="service-card">
+        <div class="sc-img"><img src="{% static 'home-img/service6.gif' %}" alt="Programming"></div>
+        <div class="sc-body"><h4><i class='bx bxs-code-alt'></i> Programming</h4><p>Websites, apps and automations built with clean, modern code by vetted developers.</p></div>
+      </div>
+      <div class="service-card">
+        <div class="sc-img"><img src="{% static 'home-img/service7.gif' %}" alt="Photography"></div>
+        <div class="sc-body"><h4><i class='bx bxs-camera'></i> Photography</h4><p>Stunning product, portrait and event photography that captures the moment.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOR FREELANCERS ================= -->
+<section class="section section-tint">
+  <div class="container split">
+    <div class="split-media reveal-left reveal">
+      <div class="media-blob violet"></div>
+      <div class="media-blob amber"></div>
+      <div class="media-frame"><img src="{% static 'home-img/1.png' %}" alt="Freelancer finding great work"></div>
+    </div>
+    <div class="split-body reveal-right reveal">
+      <span class="eyebrow"><i class='bx bxs-rocket'></i> For Freelancers</span>
+      <h2>Find great work here, on your terms</h2>
+      <p>Elevate your projects and exceed your expectations. Discover opportunities that match every phase of your freelancing journey.</p>
+      <ul class="check-list">
+        <li><i class='bx bx-check'></i> Browse projects matched to your exact skills</li>
+        <li><i class='bx bx-check'></i> Build a rich profile &amp; professional resume</li>
+        <li><i class='bx bx-check'></i> Chat with clients and deliver work in one dashboard</li>
+        <li><i class='bx bx-check'></i> Get paid securely — money released when you deliver</li>
+      </ul>
+      <a href="{% url 'findwork' %}" class="btn btn-primary">Find Work <i class='bx bx-right-arrow-alt'></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOR CLIENTS ================= -->
+<section class="section">
+  <div class="container split reverse">
+    <div class="split-media reveal-right reveal">
+      <div class="media-blob amber"></div>
+      <div class="media-blob violet"></div>
+      <div class="media-frame"><img src="{% static 'home-img/2.svg' %}" alt="Client hiring great talent"></div>
+    </div>
+    <div class="split-body reveal-left reveal">
+      <span class="eyebrow amber"><i class='bx bxs-briefcase-alt-2'></i> For Clients</span>
+      <h2>Hire the perfect talent, effortlessly</h2>
+      <p>Collaborate with a vast community of skilled freelancers — whether it's a rapid turnaround or a substantial transformation.</p>
+      <ul class="check-list amber">
+        <li><i class='bx bx-check'></i> Post a job and receive applications in hours</li>
+        <li><i class='bx bx-check'></i> Review resumes, skills and profiles before hiring</li>
+        <li><i class='bx bx-check'></i> Track progress with work updates &amp; milestones</li>
+        <li><i class='bx bx-check'></i> Pay only when you're happy with the result</li>
+      </ul>
+      <a href="{% url 'findtalent' %}" class="btn btn-accent">Post a Job <i class='bx bx-right-arrow-alt'></i></a>
+    </div>
+  </div>
+</section>
+
+<!-- ================= HOW IT WORKS ================= -->
+<section class="section section-dark">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="eyebrow" style="background:rgba(255,255,255,.1);color:#c9c0ff;"><i class='bx bx-map'></i> How It Works</span>
+      <h2>From hello to done in three easy steps</h2>
+      <p>A simple, guided flow that takes you from posting or applying all the way to a successful, secured delivery.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step-card reveal" style="--reveal-delay:0s">
+        <span class="step-num">01</span>
+        <div class="step-illus">
+          <svg width="110" height="110" viewBox="0 0 120 120" fill="none">
+            <circle cx="60" cy="60" r="52" fill="rgba(90,79,243,.16)"/>
+            <circle cx="60" cy="48" r="14" fill="#8b7cf7"/>
+            <path d="M36 88c0-13 10.5-24 24-24s24 11 24 24" stroke="#b3aaff" stroke-width="7" stroke-linecap="round"/>
+            <rect x="80" y="18" width="22" height="16" rx="5" fill="#ffb020"/>
+            <rect x="18" y="18" width="22" height="16" rx="5" fill="#ff6b5b"/>
+          </svg>
+        </div>
+        <h3>Create your profile</h3>
+        <p>Sign up in minutes as a freelancer or client. Add your skills, experience and a friendly photo — you're in control.</p>
+      </div>
+
+      <div class="step-card reveal" style="--reveal-delay:.12s">
+        <span class="step-num">02</span>
+        <div class="step-illus">
+          <svg width="110" height="110" viewBox="0 0 120 120" fill="none">
+            <circle cx="60" cy="60" r="52" fill="rgba(255,176,32,.14)"/>
+            <rect x="30" y="34" width="60" height="46" rx="8" fill="#ffb020"/>
+            <rect x="38" y="44" width="44" height="7" rx="3.5" fill="#fff" opacity=".85"/>
+            <rect x="38" y="57" width="32" height="7" rx="3.5" fill="#fff" opacity=".6"/>
+            <path d="M38 74l10-10 8 8 14-14" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="96" cy="30" r="12" fill="#ff6b5b"/>
+            <path d="M91 30l4 4 7-8" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <h3>Post or apply</h3>
+        <p>Clients post jobs with budgets and requirements. Freelancers apply with a click — matches happen fast.</p>
+      </div>
+
+      <div class="step-card reveal" style="--reveal-delay:.24s">
+        <span class="step-num">03</span>
+        <div class="step-illus">
+          <svg width="110" height="110" viewBox="0 0 120 120" fill="none">
+            <circle cx="60" cy="60" r="52" fill="rgba(15,185,165,.16)"/>
+            <rect x="34" y="30" width="52" height="38" rx="8" fill="#0fb9a5"/>
+            <path d="M46 49l9 9 19-19" stroke="#fff" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M40 80h40M46 90h28" stroke="#5fe0d0" stroke-width="6" stroke-linecap="round"/>
+            <circle cx="94" cy="88" r="14" fill="#ffb020"/>
+            <text x="94" y="94" text-anchor="middle" font-size="16" font-weight="bold" fill="#fff">₹</text>
+          </svg>
+        </div>
+        <h3>Deliver &amp; get paid</h3>
+        <p>Chat, share files, submit work and release secure payments. Then rate each other and keep building your network.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= NETWORKING ================= -->
+<section class="section section-tint">
+  <div class="container split">
+    <div class="split-body reveal-left reveal">
+      <span class="eyebrow coral"><i class='bx bxs-group'></i> Networking</span>
+      <h2>Create your professional network today</h2>
+      <p>SkillNetz is more than a marketplace — it's a community. Build a profile with your resume, share posts, follow inspiring people and grow meaningful professional relationships.</p>
+      <ul class="check-list coral">
+        <li><i class='bx bx-check'></i> Stand out with a shareable public profile &amp; resume</li>
+        <li><i class='bx bx-check'></i> Share updates and see what your network is building</li>
+        <li><i class='bx bx-check'></i> Follow freelancers and clients you love working with</li>
+      </ul>
+      <a href="{% url 'mynetwork' %}" class="btn btn-primary">Start Networking <i class='bx bxs-group'></i></a>
+    </div>
+    <div class="split-media reveal-right reveal">
+      <div class="media-blob violet"></div>
+      <div class="media-blob amber"></div>
+      <div class="media-frame"><img src="{% static 'home-img/3.png' %}" alt="Professional networking on SkillNetz"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STATS BAND ================= -->
+<section class="section section-dark" style="padding:4.5rem 0;">
+  <div class="container">
+    <div class="stats-band">
+      <div class="stat-tile reveal">
+        <div class="st-icon"><i class='bx bxs-user-account'></i></div>
+        <strong><span data-count="12000">0</span>+</strong>
+        <span>Active Members</span>
+      </div>
+      <div class="stat-tile reveal" style="--reveal-delay:.08s">
+        <div class="st-icon"><i class='bx bxs-briefcase-alt-2'></i></div>
+        <strong><span data-count="8500">0</span>+</strong>
+        <span>Jobs Completed</span>
+      </div>
+      <div class="stat-tile reveal" style="--reveal-delay:.16s">
+        <div class="st-icon"><i class='bx bxs-coin'></i></div>
+        <strong>₹<span data-count="42">0</span>L+</strong>
+        <span>Paid to Freelancers</span>
+      </div>
+      <div class="stat-tile reveal" style="--reveal-delay:.24s">
+        <div class="st-icon"><i class='bx bxs-happy-beaming'></i></div>
+        <strong><span data-count="98">0</span>%</strong>
+        <span>Happy Clients</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TESTIMONIALS ================= -->
+<section class="section">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="eyebrow amber"><i class='bx bxs-heart'></i> Loved by everyone</span>
+      <h2>Stories from our community</h2>
+      <p>Real experiences from freelancers and clients who found their perfect match on SkillNetz.</p>
+    </div>
+
+    <div class="testi-viewport reveal">
+      <div class="testi-track">
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <blockquote>"I found my first three clients within a week of joining. The skill-based job matching actually works — no more endless scrolling!"</blockquote>
+          <div class="testi-who">
+            <span class="tw-avatar" style="background:linear-gradient(135deg,#5a4ff3,#8b7cf7);">PS</span>
+            <div><strong>Priya Sharma</strong><span>Graphic Designer</span></div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <blockquote>"Posting a job took two minutes and I had five solid applications the same evening. Hired a fantastic developer for our startup's landing page."</blockquote>
+          <div class="testi-who">
+            <span class="tw-avatar" style="background:linear-gradient(135deg,#ff8a3c,#ffb020);">RK</span>
+            <div><strong>Rahul Khanna</strong><span>Founder, TechLeap</span></div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <blockquote>"The chat + file sharing + payments in one dashboard makes deliveries so smooth. It feels like the platform was built by people who get freelancing."</blockquote>
+          <div class="testi-who">
+            <span class="tw-avatar" style="background:linear-gradient(135deg,#0fb9a5,#34d3bc);">AM</span>
+            <div><strong>Aisha Memon</strong><span>Content Writer</span></div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★☆</div>
+          <blockquote>"As a small business owner, I use SkillNetz for everything from logos to social media posts. The escrow-style payments give me total peace of mind."</blockquote>
+          <div class="testi-who">
+            <span class="tw-avatar" style="background:linear-gradient(135deg,#ff6b5b,#ff8a7a);">SD</span>
+            <div><strong>Sneha Desai</strong><span>Boutique Owner</span></div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <blockquote>"The networking feature is underrated — I've made professional connections that turned into long-term retainer clients. Highly recommended."</blockquote>
+          <div class="testi-who">
+            <span class="tw-avatar" style="background:linear-gradient(135deg,#3f8cff,#6aa8ff);">AV</span>
+            <div><strong>Arjun Verma</strong><span>Video Editor</span></div>
+          </div>
+        </div>
+        <div class="testi-card">
+          <div class="testi-stars">★★★★★</div>
+          <blockquote>"Clean interface, honest reviews and quick payouts. SkillNetz is now my primary source of freelance income."</blockquote>
+          <div class="testi-who">
+            <span class="tw-avatar" style="background:linear-gradient(135deg,#8b7cf7,#b3aaff);">MN</span>
+            <div><strong>Meera Nair</strong><span>Web Developer</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testi-nav">
+      <button class="t-prev" type="button" aria-label="Previous"><i class='bx bx-left-arrow-alt'></i></button>
+      <button class="t-next" type="button" aria-label="Next"><i class='bx bx-right-arrow-alt'></i></button>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section class="section section-tint">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="eyebrow"><i class='bx bx-help-circle'></i> Good to know</span>
+      <h2>Frequently asked questions</h2>
+    </div>
+
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <button class="faq-q" type="button">Is SkillNetz free to join? <i class='bx bx-plus'></i></button>
+        <div class="faq-a"><p>Yes! Creating an account, building your profile and applying to jobs is completely free for freelancers. Clients only pay when they hire and the work is delivered.</p></div>
+      </div>
+      <div class="faq-item reveal" style="--reveal-delay:.05s">
+        <button class="faq-q" type="button">How do payments work? <i class='bx bx-plus'></i></button>
+        <div class="faq-a"><p>Payments are processed securely through Razorpay. Once a client releases the payment, freelancers can collect their earnings straight to their bank account.</p></div>
+      </div>
+      <div class="faq-item reveal" style="--reveal-delay:.1s">
+        <button class="faq-q" type="button">What skills can I offer or hire for? <i class='bx bx-plus'></i></button>
+        <div class="faq-a"><p>Everything from graphic design, digital marketing, writing and translation to video editing, programming, music production and photography — with more categories added regularly.</p></div>
+      </div>
+      <div class="faq-item reveal" style="--reveal-delay:.15s">
+        <button class="faq-q" type="button">Can I be both a freelancer and a client? <i class='bx bx-plus'></i></button>
+        <div class="faq-a"><p>Absolutely. Many members hire talent for their own projects while freelancing on the side. You can post jobs and apply for work from the same account.</p></div>
+      </div>
+      <div class="faq-item reveal" style="--reveal-delay:.2s">
+        <button class="faq-q" type="button">How does the networking feature help me? <i class='bx bx-plus'></i></button>
+        <div class="faq-a"><p>Over 60% of freelancers find work through networking. Build a public profile with your resume, share posts about your work, and follow people to stay top of mind for future opportunities.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CTA ================= -->
+<section class="section" style="padding-top:0;">
+  <div class="container">
+    <div class="cta-banner reveal">
+      <div class="cta-ring r1"></div>
+      <div class="cta-ring r2"></div>
+      <h2>Ready to grow your career or business?</h2>
+      <p>Join thousands of freelancers and clients building amazing things together on SkillNetz. Your next opportunity is one click away.</p>
+      <div class="cta-actions">
+        <a href="{% url 'signup' %}" class="btn btn-light">Join SkillNetz Free <i class='bx bx-right-arrow-alt'></i></a>
+        <a href="{% url 'findwork' %}" class="btn btn-ghost" style="color:#fff;border-color:rgba(255,255,255,.4);">Browse Jobs</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+  /* Duplicate the facts marquee content for a seamless loop */
+  (function () {
+    var m = document.getElementById('facts-marquee');
+    if (m) m.innerHTML += m.innerHTML;
+  })();
+</script>
+{% endblock %}

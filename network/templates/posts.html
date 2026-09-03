@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Community Posts — SkillNetz{% endblock %}
+
+{% block content %}
+
+<header class="page-hero">
+  <div class="container">
+    <span class="eyebrow coral reveal"><i class='bx bxs-message-square-dots'></i> Community</span>
+    <h1 class="reveal" style="--reveal-delay:.06s;">What's happening on SkillNetz</h1>
+    <p class="reveal" style="--reveal-delay:.12s;">Updates, wins and questions from freelancers and clients across the community.</p>
+    <div class="reveal" style="--reveal-delay:.18s;margin-top:1.6rem;">
+      <a href="{% url 'addpost' %}" class="btn btn-primary">Share a Post <i class='bx bx-plus'></i></a>
+    </div>
+  </div>
+</header>
+
+<section class="section" style="padding-top:3rem;">
+  <div class="container">
+    <div class="feed">
+      {% for post in Posts %}
+      <article class="post-card reveal">
+        <div class="post-head">
+          <img src="{{ post.user.dp_img.url }}" alt="">
+          <div>
+            <a href="{% url 'profile' post.user.id %}" class="pc-author" style="text-transform:capitalize;">{{ post.user.first_name|default:post.user.username }}</a>
+            <div class="pc-date"><i class='bx bx-time-five'></i> {{ post.created_at|date:"d M Y, g:i A" }} · {{ post.user.role }}</div>
+          </div>
+        </div>
+        <p class="post-body">{{ post.body }}</p>
+      </article>
+      {% empty %}
+      <div class="empty-state reveal">
+        <div class="es-icon"><i class='bx bx-message-square-add'></i></div>
+        <h3>Be the first to post</h3>
+        <p>Share what you're working on, a recent win, or a question for the community.</p>
+        <a href="{% url 'addpost' %}" class="btn btn-primary btn-sm">Create a Post</a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% endblock %}

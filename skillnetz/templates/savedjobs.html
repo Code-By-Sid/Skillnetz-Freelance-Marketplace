@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Saved Jobs — SkillNetz{% endblock %}
+
+{% block content %}
+
+<header class="page-hero" style="padding-bottom:2.6rem;">
+  <div class="container">
+    <span class="eyebrow reveal"><i class='bx bxs-bookmark'></i> Your Collection</span>
+    <h1 class="reveal" style="--reveal-delay:.06s">Saved jobs</h1>
+    <p class="reveal" style="--reveal-delay:.12s">All the opportunities you bookmarked for later — apply whenever you're ready.</p>
+    <div class="reveal" style="--reveal-delay:.18s;display:flex;gap:.6rem;margin-top:1.6rem;flex-wrap:wrap;">
+      <span class="chip" style="background:var(--primary);border-color:var(--primary);color:#fff;"><i class='bx bxs-bookmark'></i> Saved</span>
+      <a href="{% url 'findwork' %}" class="chip"><i class='bx bx-search-alt-2'></i> Browse Jobs</a>
+      <a href="{% url 'mywork' %}" class="chip"><i class='bx bx-file'></i> My Applications</a>
+    </div>
+  </div>
+</header>
+
+<section class="section" style="padding-top:3rem;">
+  <div class="container">
+    {% if saved_jobs %}
+    <div class="card-grid">
+      {% for saved in saved_jobs %}
+      <article class="job-card reveal">
+        {% if saved.job.job_image %}
+        <a href="{% url 'job_detail' saved.job.id %}" class="jc-img"><img src="{{ saved.job.job_image.url }}" alt="{{ saved.job.job_title }}" loading="lazy"></a>
+        {% endif %}
+        <div class="jc-body">
+          <h3><a href="{% url 'job_detail' saved.job.id %}">{{ saved.job.job_title }}</a></h3>
+          <p class="jc-desc">{{ saved.job.description|truncatechars:120 }}</p>
+          <div class="job-meta">
+            <span class="meta-pill price"><i class='bx bx-rupee'></i> {{ saved.job.price }}</span>
+            {% for s in saved.job.skill.all %}<span class="meta-pill skill">{{ s.name }}</span>{% endfor %}
+          </div>
+          <div class="jc-actions">
+            <a href="{% url 'job_detail' saved.job.id %}" class="btn btn-primary btn-sm">View Details <i class='bx bx-right-arrow-alt'></i></a>
+            <a href="{% url 'save_job' saved.job.id %}" class="save-btn saved"><i class='bx bxs-bookmark-minus'></i> Remove</a>
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state reveal">
+      <div class="es-icon"><i class='bx bxs-bookmark-alt-plus'></i></div>
+      <h3>No saved jobs yet</h3>
+      <p>Tap the bookmark button on any job to keep it here for later.</p>
+      <a href="{% url 'findwork' %}" class="btn btn-primary btn-sm">Browse Jobs <i class='bx bx-right-arrow-alt'></i></a>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+{% endblock %}

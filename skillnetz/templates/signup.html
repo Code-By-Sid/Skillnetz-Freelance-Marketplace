@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Join SkillNetz — Sign up{% endblock %}
+
+{% block content %}
+<div class="auth-wrap">
+  <div class="auth-visual reveal-left reveal">
+    <div class="av-bg"><img src="{% static 'signin-img/bg4.jpg' %}" alt="Join the SkillNetz community"></div>
+    <div class="av-overlay"></div>
+    <div class="av-content">
+      <h2>Join 12+ members 🚀</h2>
+      <p>Whether you're chasing your first gig or hiring for your next big idea — SkillNetz is where you belong.</p>
+      <ul class="av-points">
+        <li><i class='bx bx-check'></i> Free to join, forever</li>
+        <li><i class='bx bx-check'></i> Build a profile &amp; public resume</li>
+        <li><i class='bx bx-check'></i> Grow your professional network</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="auth-panel">
+    <div class="auth-card reveal-right reveal">
+      <div class="form-card">
+        <h1>Create your account</h1>
+        <p class="auth-sub">Step 1 — tell us who you are and what you do</p>
+
+        <form method="POST" id="signup-form">
+          {% csrf_token %}
+          <input type="hidden" name="choice" id="choice" value="">
+
+          <div class="role-picker">
+            <div class="role-card">
+              <input type="radio" name="choice-radio" value="freelancer" id="role-freelancer">
+              <label for="role-freelancer">
+                <span class="rc-icon"><i class='bx bxs-user'></i></span>
+                I'm a Freelancer<br>
+                <small style="font-weight:400;color:var(--muted);font-size:0.8rem;">I want to find work</small>
+              </label>
+            </div>
+            <div class="role-card">
+              <input type="radio" name="choice-radio" value="client" id="role-client">
+              <label for="role-client">
+                <span class="rc-icon"><i class='bx bxs-handshake'></i></span>
+                I'm a Client<br>
+                <small style="font-weight:400;color:var(--muted);font-size:0.8rem;">I want to hire talent</small>
+              </label>
+            </div>
+          </div>
+
+          <div>
+            <label class="selected-heading" style="margin-bottom:0.6rem;">Select your skills</label>
+            <div class="skill-select" id="skill-pills" style="margin-bottom:1.6rem;">
+              <span class="skill-pill" data-skill="Content Writing">Content Writing</span>
+              <span class="skill-pill" data-skill="Translation">Translation</span>
+              <span class="skill-pill" data-skill="Web Designing">Web Designing</span>
+              <span class="skill-pill" data-skill="Graphic Designing">Graphic Designing</span>
+              <span class="skill-pill" data-skill="Data Entry">Data Entry</span>
+              <span class="skill-pill" data-skill="Wordpress">Wordpress</span>
+              <span class="skill-pill" data-skill="Video Editing">Video Editing</span>
+              <span class="skill-pill" data-skill="Photoshop">Photoshop</span>
+              <span class="skill-pill" data-skill="Programming">Programming</span>
+              <span class="skill-pill" data-skill="Content Creation">Content Creation</span>
+            </div>
+            <input type="hidden" name="skill" id="skillInput" value="">
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block" style="padding:0.95rem;">Create My Account <i class='bx bx-right-arrow-alt'></i></button>
+        </form>
+
+        <p class="auth-alt">Already have an account? <a href="{% url 'login' %}">Log in</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(function () {
+  var hiddenChoice = document.getElementById('choice');
+  var radios = document.querySelectorAll('input[name="choice-radio"]');
+  radios.forEach(function (r) {
+    r.addEventListener('change', function () { hiddenChoice.value = r.value; });
+  });
+
+  initSkillPills(document.getElementById('skill-pills'), document.getElementById('skillInput'));
+
+  document.getElementById('signup-form').addEventListener('submit', function (e) {
+    if (!document.querySelector('input[name="choice-radio"]:checked')) {
+      e.preventDefault();
+      showToast('Please choose Freelancer or Client to continue.');
+      return;
+    }
+    if (!document.getElementById('skillInput').value) {
+      e.preventDefault();
+      showToast('Select at least one skill that describes you.');
+    }
+  });
+})();
+</script>
+{% endblock %}

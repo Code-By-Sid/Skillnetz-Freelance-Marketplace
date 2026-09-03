@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Following — SkillNetz{% endblock %}
+
+{% block content %}
+
+<header class="page-hero" style="padding-bottom:2.6rem;">
+  <div class="container">
+    <a href="javascript:history.back()" class="chip reveal" style="margin-bottom:1.2rem;"><i class='bx bx-left-arrow-alt'></i> Go back</a>
+    <span class="eyebrow coral reveal"><i class='bx bxs-user-detail'></i> Network</span>
+    <h1 class="reveal" style="--reveal-delay:.06s;">Following</h1>
+    <p class="reveal" style="--reveal-delay:.12s;">The members this person follows for updates and inspiration.</p>
+  </div>
+</header>
+
+<section class="section" style="padding-top:3rem;">
+  <div class="container">
+    {% if follows_list %}
+    <div class="people-grid">
+      {% for followed_profile in follows_list %}
+      <div class="person-card reveal">
+        <div class="pc-avatar"><img src="{{ followed_profile.user.dp_img.url }}" alt=""></div>
+        <h3 style="text-transform:capitalize;">{{ followed_profile.user.first_name|default:followed_profile.user.username }}</h3>
+        <div class="pc-username">@{{ followed_profile.user.username }}</div>
+        <div class="pc-stats">
+          <div><strong>{{ followed_profile.followed_by.all.count }}</strong><span>Followers</span></div>
+          <div><strong>{{ followed_profile.follows.count }}</strong><span>Following</span></div>
+        </div>
+        <a href="{% url 'profile' followed_profile.user.id %}" class="btn btn-ghost btn-sm">View Profile <i class='bx bx-right-arrow-alt'></i></a>
+      </div>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state reveal">
+      <div class="es-icon"><i class='bx bxs-user-x'></i></div>
+      <h3>Not following anyone yet</h3>
+      <p>Discover talented people in the network and follow their journey.</p>
+      <a href="{% url 'mynetwork' %}" class="btn btn-ghost btn-sm">Discover people</a>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ user.first_name|default:user.username }}'s Resume — SkillNetz{% endblock %}
+
+{% block content %}
+
+<section class="section" style="padding-top:calc(var(--nav-h) + 3rem);">
+  <div class="container">
+
+    <div class="resume-doc reveal">
+      <div class="rd-top">
+        <img src="{{ user.dp_img.url }}" alt="">
+        <div>
+          <h1 style="text-transform:capitalize;">{{ user.first_name|default:user.username }} {{ user.last_name }}</h1>
+          <p><i class='bx bxs-id-badge'></i> {{ user.role }} · @{{ user.username }}</p>
+          <div style="display:flex;gap:0.4rem;flex-wrap:wrap;margin-top:0.6rem;">
+            {% for skill in user.skill.all %}
+            <span class="chip">{{ skill.name }}</span>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+
+      <div class="rd-body">
+        {% if resume %}
+        <div class="rd-section">
+          <h2><i class='bx bxs-user'></i> Personal Info</h2>
+          <p>{{ resume.personal_info }}</p>
+        </div>
+        <div class="rd-section">
+          <h2><i class='bx bxs-briefcase-alt-2'></i> Experience</h2>
+          <p>{{ resume.experience }}</p>
+        </div>
+        <div class="rd-section">
+          <h2><i class='bx bxs-trophy'></i> Achievements</h2>
+          <p>{{ resume.achievements }}</p>
+        </div>
+        {% else %}
+        <div class="empty-state" style="border:none;padding:2.5rem 1.5rem;">
+          <div class="es-icon"><i class='bx bxs-file-blank'></i></div>
+          <h3>No resume yet</h3>
+          {% if request.user == user %}
+          <p>Create your resume so clients and collaborators can learn more about you.</p>
+          <a href="{% url 'edit_resume' %}" class="btn btn-primary btn-sm">Create My Resume <i class='bx bx-plus'></i></a>
+          {% else %}
+          <p>This member hasn't added a resume yet.</p>
+          {% endif %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+
+    {% if request.user == user and resume %}
+    <div style="text-align:center;margin-top:2rem;" class="reveal">
+      <a href="{% url 'edit_resume' %}" class="btn btn-primary"><i class='bx bxs-edit'></i> Edit Resume</a>
+    </div>
+    {% endif %}
+
+  </div>
+</section>
+
+{% endblock %}

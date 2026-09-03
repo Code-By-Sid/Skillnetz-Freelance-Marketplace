@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Almost there — SkillNetz{% endblock %}
+
+{% block content %}
+<div class="auth-wrap">
+  <div class="auth-visual reveal-left reveal">
+    <div class="av-bg"><img src="{% static 'signin-img/bg5.gif' %}" alt="Tell us about yourself"></div>
+    <div class="av-overlay"></div>
+    <div class="av-content">
+      <h2>Almost there! ✨</h2>
+      <p>Just a few details and we'll verify your email with a one-time code. Then the whole SkillNetz community opens up for you.</p>
+      <ul class="av-points">
+        <li><i class='bx bx-check'></i> Your details stay private</li>
+        <li><i class='bx bx-check'></i> Email verification keeps the community safe</li>
+        <li><i class='bx bx-check'></i> You can edit everything later</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="auth-panel">
+    <div class="auth-card reveal-right reveal">
+      <div class="form-card">
+        <h1>Tell us about you</h1>
+        <p class="auth-sub">Step 2 — your account details</p>
+
+        <form method="POST">
+          {% csrf_token %}
+          <div class="form-row">
+            <div class="form-group">
+              <label for="su-first">First name</label>
+              <input class="form-control" type="text" id="su-first" name="first_name" placeholder="Siddhesh" required>
+            </div>
+            <div class="form-group">
+              <label for="su-last">Last name</label>
+              <input class="form-control" type="text" id="su-last" name="last_name" placeholder="Patil" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="su-email">Email</label>
+            <input class="form-control" type="email" id="su-email" name="email" placeholder="you@example.com" required>
+          </div>
+          <div class="form-group">
+            <label for="su-linkedin">LinkedIn profile</label>
+            <input class="form-control" type="text" id="su-linkedin" name="linkedin_id" placeholder="linkedin.com/in/you" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="su-pass">Password</label>
+              <input class="form-control" type="password" id="su-pass" name="password1" placeholder="Create a password" required>
+            </div>
+            <div class="form-group">
+              <label for="su-pass2">Confirm password</label>
+              <input class="form-control" type="password" id="su-pass2" name="password2" placeholder="Repeat password" required>
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block" style="padding:0.95rem;">Continue <i class='bx bx-right-arrow-alt'></i></button>
+        </form>
+
+        <p class="auth-alt">Already have an account? <a href="{% url 'login' %}">Log in</a></p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+(function () {
+  var form = document.querySelector('.auth-card form');
+  var p1 = document.getElementById('su-pass');
+  var p2 = document.getElementById('su-pass2');
+  form.addEventListener('submit', function (e) {
+    if (p1.value !== p2.value) {
+      e.preventDefault();
+      p2.style.borderColor = 'var(--coral)';
+      showToast('Passwords do not match. Please try again.');
+    }
+  });
+})();
+</script>
+{% endblock %}

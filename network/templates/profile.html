@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ Profile.user.first_name|default:Profile.user.username }} — Profile — SkillNetz{% endblock %}
+
+{% block content %}
+
+<header class="profile-banner">
+  <div class="container profile-head reveal">
+    <div class="ph-avatar">
+      {% if Profile.user == request.user %}
+      <form action="{% url 'upload_img' request.user.id %}" method="POST" enctype="multipart/form-data" id="dp-form" style="display:contents;">
+        {% csrf_token %}
+        <img src="{{ Profile.user.dp_img.url }}" alt="{{ Profile.user.first_name }}">
+        <label class="ph-cam" for="dp-input" title="Change profile photo"><i class='bx bxs-camera'></i></label>
+        <input type="file" name="image" id="dp-input" accept="image/*" onchange="document.getElementById('dp-form').submit();" hidden>
+      </form>
+      {% else %}
+      <img src="{{ Profile.user.dp_img.url }}" alt="{{ Profile.user.first_name }}">
+      {% endif %}
+    </div>
+
+    <div>
+      <h1 style="text-transform:capitalize;">{{ Profile.user.first_name|default:Profile.user.username }} {{ Profile.user.last_name }}</h1>
+      <div class="ph-role"><i class='bx bxs-id-badge'></i> {{ Profile.user.role }} · @{{ Profile.user.username }}</div>
+      <div class="ph-skills">
+        {% for skill in Profile.user.skill.all %}
+        <span class="chip">{{ skill.name }}</span>
+        {% empty %}
+        <span class="chip">No skills listed yet</span>
+        {% endfor %}
+      </div>
+      <div class="profile-stats">
+        <div><strong>{{ Profile.followed_by.all.count }}</strong> <span>Followers</span></div>
+        <div><strong>{{ Profile.follows.count }}</strong> <span>Following</span></div>
+        <div><strong>{{ Posts|length }}</strong> <span>Posts</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container profile-actions reveal" style="--reveal-delay:.1s;">
+    {% if Profile.user != request.user %}
+    <form method="POST">
+      {% csrf_token %}
+      {% if Profile in request.user.pro.follows.all %}
+      <button name="follow" value="unfollow" type="submit" class="btn btn-ghost btn-sm"><i class='bx bx-user-minus'></i> Unfollow</button>
+      {% else %}
+      <button name="follow" value="follow" type="submit" class="btn btn-light btn-sm"><i class='bx bx-user-plus'></i> Follow</button>
+      {% endif %}
+    </form>
+    {% endif %}
+
+    <a href="{% url 'display_resume' Profile.user.id %}" class="btn btn-light btn-sm"><i class='bx bxs-file'></i> View Resume</a>
+    <a href="{% url 'followers' pk=Profile.user_id %}" class="btn btn-ghost btn-sm" style="color:#fff;border-color:rgba(255,255,255,.4);"><i class='bx bxs-group'></i> Followers</a>
+    <a href="{% url 'following' pk=Profile.user_id %}" class="btn btn-ghost btn-sm" style="color:#fff;border-color:rgba(255,255,255,.4);"><i class='bx bxs-user-detail'></i> Following</a>
+    {% if Profile.user == request.user %}
+    <a href="{% url 'edit_resume' %}" class="btn btn-accent btn-sm"><i class='bx bxs-edit'></i> Edit Resume</a>
+    {% endif %}
+  </div>
+</header>
+
+<section class="section" style="padding-top:3.4rem;">
+  <div class="container">
+    <h2 class="skill-group-title reveal">
+      <i class='bx bxs-message-square-dots' style="color:var(--primary);"></i>
+      Posts by {{ Profile.user.first_name|default:Profile.user.username }}
+      <span class="sgt-count">{{ Posts|length }}</span>
+      <span class="sgt-line"></span>
+    </h2>
+
+    <div class="feed">
+      {% for post in Posts %}
+      <article class="post-card reveal">
+        <div class="post-head">
+          <img src="{{ post.user.dp_img.url }}" alt="">
+          <div>
+            <a href="{% url 'profile' post.user.id %}" class="pc-author" style="text-transform:capitalize;">{{ post.user.first_name|default:post.user.username }}</a>
+            <div class="pc-date"><i class='bx bx-time-five'></i> {{ post.created_at|date:"d M Y, g:i A" }}</div>
+          </div>
+        </div>
+        <p class="post-body">{{ post.body }}</p>
+      </article>
+      {% empty %}
+      <div class="empty-state reveal">
+        <div class="es-icon"><i class='bx bx-message-square-add'></i></div>
+        <h3>No posts yet</h3>
+        {% if Profile.user == request.user %}
+        <p>Share an update with your network — it's a great way to get noticed.</p>
+        <a href="{% url 'addpost' %}" class="btn btn-primary btn-sm">Create a Post</a>
+        {% else %}
+        <p>When {{ Profile.user.first_name|default:Profile.user.username }} shares an update, it will appear here.</p>
+        {% endif %}
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+{% endblock %}

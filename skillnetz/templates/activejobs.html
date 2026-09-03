@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Active Jobs — SkillNetz{% endblock %}
+
+{% block content %}
+
+<header class="page-hero" style="padding-bottom:2.6rem;">
+  <div class="container">
+    <span class="eyebrow coral reveal"><i class='bx bxs-briefcase-alt-2'></i> Client Dashboard</span>
+    <h1 class="reveal" style="--reveal-delay:.06s">Active jobs</h1>
+    <p class="reveal" style="--reveal-delay:.12s">Work in progress — open a dashboard to chat, share files and release payments.</p>
+    <div class="reveal" style="--reveal-delay:.18s;display:flex;gap:.6rem;margin-top:1.6rem;flex-wrap:wrap;">
+      <a href="{% url 'myjobs' %}" class="chip"><i class='bx bx-list-ul'></i> Posted Jobs</a>
+      <span class="chip" style="background:var(--primary);border-color:var(--primary);color:#fff;"><i class='bx bxs-briefcase-alt-2'></i> Active Jobs</span>
+      <a href="{% url 'findtalent' %}" class="chip"><i class='bx bx-plus'></i> Post a New Job</a>
+    </div>
+  </div>
+</header>
+
+<section class="section" style="padding-top:3rem;">
+  <div class="container">
+    {% if user_posts %}
+    <div class="card-grid">
+      {% for job in user_posts %}
+      <article class="job-card reveal">
+        {% if job.job_image %}
+        <a href="{% url 'dashboard' job.id %}" class="jc-img">
+          <img src="{{ job.job_image.url }}" alt="{{ job.job_title }}" loading="lazy">
+          <span class="meta-pill skill" style="position:absolute;top:0.9rem;left:0.9rem;background:rgba(255,255,255,.92);"><i class='bx bxs-zap' style="color:#e58e00;"></i> In progress</span>
+        </a>
+        {% endif %}
+        <div class="jc-body">
+          <h3><a href="{% url 'dashboard' job.id %}">{{ job.job_title }}</a></h3>
+          <p class="jc-desc">
+            <i class='bx bxs-user-detail' style="color:var(--primary);'></i>
+            Assigned to <strong>{{ job.assign_to.first_name|default:job.assign_to.username }}</strong>
+          </p>
+          <div class="job-meta">
+            <span class="meta-pill price"><i class='bx bx-rupee'></i> {{ job.price }}</span>
+            {% for s in job.skill.all %}<span class="meta-pill skill">{{ s.name }}</span>{% endfor %}
+            <span class="meta-pill date"><i class='bx bx-calendar'></i> {{ job.post_date|default_if_none:"—" }}</span>
+          </div>
+          <div class="jc-actions">
+            <a href="{% url 'dashboard' job.id %}" class="btn btn-primary btn-sm">Open Dashboard <i class='bx bx-right-arrow-alt'></i></a>
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+    {% else %}
+    <div class="empty-state reveal">
+      <div class="es-icon"><i class='bx bx-time-five'></i></div>
+      <h3>No active jobs yet</h3>
+      <p>When you accept a freelancer's application, the project will appear here with its own dashboard.</p>
+      <a href="{% url 'myjobs' %}" class="btn btn-ghost btn-sm">Review applications</a>
+    </div>
+    {% endif %}
+  </div>
+</section>
+
+{% endblock %}

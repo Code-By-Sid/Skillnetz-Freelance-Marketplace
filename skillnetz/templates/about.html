@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}About Us — SkillNetz{% endblock %}
+
+{% block content %}
+
+<!-- ===== Page hero ===== -->
+<header class="page-hero">
+  <div class="container">
+    <span class="eyebrow reveal"><i class='bx bx-info-circle'></i> About SkillNetz</span>
+    <h1 class="reveal" style="--reveal-delay:.06s">Where creativity meets opportunity</h1>
+    <p class="reveal" style="--reveal-delay:.12s">We're building the friendliest freelancing marketplace in India — a place where talented people find meaningful work and businesses find the partners they need to grow.</p>
+  </div>
+</header>
+
+<!-- ===== Story ===== -->
+<section class="section">
+  <div class="container split">
+    <div class="split-media reveal-left reveal">
+      <div class="media-blob violet"></div>
+      <div class="media-blob amber"></div>
+      <div class="media-frame" style="aspect-ratio:auto;"><img src="{% static 'about-us/1.gif' %}" alt="About SkillNetz" style="aspect-ratio:1.05;"></div>
+    </div>
+    <div class="split-body reveal-right reveal">
+      <span class="eyebrow"><i class='bx bxs-book-heart'></i> Our Story</span>
+      <h2>Born from a simple idea</h2>
+      <p>SkillNetz started with a question: <em>why is finding good work — or good talent — so hard?</em> Traditional job boards feel cold, and big marketplaces feel impersonal. We wanted to build something warmer.</p>
+      <p style="margin-top:1rem;">Today, SkillNetz is a dynamic space that connects talented freelancers with clients seeking top-notch services. We believe in empowering freelancers to showcase their skills and enabling businesses to find the right talent for their projects — with a community feel that keeps people coming back.</p>
+      <div class="hero-stats" style="margin-top:2rem;">
+        <div class="hero-stat"><strong><span data-count="12000">0</span>+</strong><span>Community members</span></div>
+        <div class="hero-stat"><strong><span data-count="8500">0</span>+</strong><span>Projects delivered</span></div>
+        <div class="hero-stat"><strong><span data-count="98">0</span>%</strong><span>Satisfaction rate</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Values ===== -->
+<section class="section section-tint">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="eyebrow coral"><i class='bx bxs-heart'></i> What we believe</span>
+      <h2>The values that guide us</h2>
+      <p>Every feature we build starts with one of these four principles.</p>
+    </div>
+    <div class="card-grid">
+      <div class="service-card reveal" style="width:auto;">
+        <div class="sc-body" style="padding:2rem 1.7rem;">
+          <span class="fc-icon" style="width:56px;height:56px;border-radius:18px;display:grid;place-items:center;font-size:1.7rem;background:var(--primary-soft);color:var(--primary);"><i class='bx bxs-handshake'></i></span>
+          <h4 style="margin-top:1.2rem;">People first</h4>
+          <p style="margin-top:.5rem;">Behind every job is a person with a dream. We design for fairness, friendliness and real human connection.</p>
+        </div>
+      </div>
+      <div class="service-card reveal" style="width:auto;--reveal-delay:.08s">
+        <div class="sc-body" style="padding:2rem 1.7rem;">
+          <span style="width:56px;height:56px;border-radius:18px;display:grid;place-items:center;font-size:1.7rem;background:var(--accent-soft);color:#e58e00;"><i class='bx bxs-shield-alt-2'></i></span>
+          <h4 style="margin-top:1.2rem;">Trust &amp; safety</h4>
+          <p style="margin-top:.5rem;">Verified profiles, secure escrow-style payments and transparent reviews protect both sides of every deal.</p>
+        </div>
+      </div>
+      <div class="service-card reveal" style="width:auto;--reveal-delay:.16s">
+        <div class="sc-body" style="padding:2rem 1.7rem;">
+          <span style="width:56px;height:56px;border-radius:18px;display:grid;place-items:center;font-size:1.7rem;background:var(--teal-soft);color:var(--teal);"><i class='bx bxs-rocket'></i></span>
+          <h4 style="margin-top:1.2rem;">Growth mindset</h4>
+          <p style="margin-top:.5rem;">From your first small gig to a full freelance career, we grow with you — with tools, network and support at every step.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== Services ===== -->
+<section class="section">
+  <div class="container">
+    <div class="section-head center reveal">
+      <span class="eyebrow amber"><i class='bx bx-grid-alt'></i> What we offer</span>
+      <h2>Talent for every kind of project</h2>
+      <p>Whether you need a stunning logo or a full marketing campaign, our community has you covered.</p>
+    </div>
+    <div class="card-grid cols-2">
+      <div class="job-card reveal">
+        <div class="jc-img"><img src="{% static 'home-img/service1.gif' %}" alt="Graphics design"></div>
+        <div class="jc-body">
+          <h3><i class='bx bxs-palette' style="color:var(--primary);"></i> Graphics Design</h3>
+          <p class="jc-desc">Whether you're looking for a stunning logo or eye-catching visuals, our designers craft work that gets noticed.</p>
+          <a href="{% url 'findwork' %}?q=graphic" class="btn btn-ghost btn-sm">Explore <i class='bx bx-right-arrow-alt'></i></a>
+        </div>
+      </div>
+      <div class="job-card reveal" style="--reveal-delay:.08s">
+        <div class="jc-img"><img src="{% static 'home-img/service2.gif' %}" alt="Digital marketing"></div>
+        <div class="jc-body">
+          <h3><i class='bx bxs-megaphone' style="color:#e58e00;"></i> Digital Marketing</h3>
+          <p class="jc-desc">Boost your online presence with marketers who live and breathe SEO, ads and social media growth.</p>
+          <a href="{% url 'findwork' %}?q=marketing" class="btn btn-ghost btn-sm">Explore <i class='bx bx-right-arrow-alt'></i></a>
+        </div>
+      </div>
+      <div class="job-card reveal" style="--reveal-delay:.16s">
+        <div class="jc-img"><img src="{% static 'home-img/service3.gif' %}" alt="Writing and translation"></div>
+        <div class="jc-body">
+          <h3><i class='bx bxs-pen' style="color:var(--coral);"></i> Writing &amp; Translation</h3>
+          <p class="jc-desc">Our freelancers excel at creating compelling content that converts readers into customers.</p>
+          <a href="{% url 'findwork' %}?q=writing" class="btn btn-ghost btn-sm">Explore <i class='bx bx-right-arrow-alt'></i></a>
+        </div>
+      </div>
+      <div class="job-card reveal" style="--reveal-delay:.24s">
+        <div class="jc-img"><img src="{% static 'home-img/service4.gif' %}" alt="Video animation"></div>
+        <div class="jc-body">
+          <h3><i class='bx bxs-videos' style="color:var(--teal);"></i> Video &amp; Animation</h3>
+          <p class="jc-desc">Tell your story through captivating animations and edits that keep audiences watching.</p>
+          <a href="{% url 'findwork' %}?q=video" class="btn btn-ghost btn-sm">Explore <i class='bx bx-right-arrow-alt'></i></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CTA ===== -->
+<section class="section" style="padding-top:0;">
+  <div class="container">
+    <div class="cta-banner reveal">
+      <div class="cta-ring r1"></div>
+      <div class="cta-ring r2"></div>
+      <h2>Come build the future with us</h2>
+      <p>Whether you're chasing your first freelance gig or your next big hire — SkillNetz is ready when you are.</p>
+      <div class="cta-actions">
+        <a href="{% url 'signup' %}" class="btn btn-light">Get Started Free <i class='bx bx-right-arrow-alt'></i></a>
+        <a href="{% url 'findtalent' %}" class="btn btn-ghost" style="color:#fff;border-color:rgba(255,255,255,.4);">Post a Job</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}
